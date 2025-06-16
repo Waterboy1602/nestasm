@@ -23,11 +23,13 @@ lazy_static = "1.5"
 fern = "0.7"
 web-time = "1.1"
 
-getrandom = { version = "0.3", features = ["wasm_js"] }
-jagua-rs = { path = "../jagua-rs" , features = ["spp", "bpp"] }
-lbf = { path = "../lbf"}
-svg_collision = { path = "../svg_collision" }
 rand = { version = "0.9" }
+getrandom = { version = "0.3", features = ["wasm_js"] }
+
+jagua-rs = { git = "https://github.com/Waterboy1602/jagua-rs_wasm.git" , features = ["spp", "bpp"] }
+lbf = { git = "https://github.com/Waterboy1602/jagua-rs_wasm.git"}
+svg_collision = { git = "https://github.com/Waterboy1602/svg_collision_detector.git" }
+# sparrow = { features = ["only_final_svg"], git = "https://github.com/Waterboy1602/sparrow_wasm.git" }
 
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
