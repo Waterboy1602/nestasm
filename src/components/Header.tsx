@@ -78,8 +78,7 @@ function Header({ config, setConfig, onHomeClick }: HeaderProps) {
       )}
 
       <Link to="/" className={styles.container} onClick={onHomeClick}>
-        <img src="./jaguars_logo.svg" alt="jagua-rs logo" />
-        <h1>jagua-rs</h1>
+        <h1>NESTASM</h1>
       </Link>
 
       <div className={`${styles.container}`} style={{ justifyContent: "flex-end" }}>

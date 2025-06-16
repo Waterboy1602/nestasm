@@ -4,11 +4,9 @@ import svgr from "vite-plugin-svgr";
 import wasm from "vite-plugin-wasm";
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => {
-  const isBuild = command === "build";
-
+export default defineConfig(() => {
   return {
-    base: isBuild ? "/jagua-rs/" : "/",
+    base: "/nestasm",
     plugins: [
       react(),
       svgr({

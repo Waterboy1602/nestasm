@@ -37,7 +37,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/nestasm">
       <Header config={config} setConfig={setConfig} onHomeClick={resetState} />
       <main>
         <Routes>
