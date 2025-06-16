@@ -27,13 +27,13 @@ jobs:
       - name: Build Rust WASM and React Application
         run: |
           cargo install wasm-pack
-          cd wasm && wasm-pack build --target web --out-dir ../gui/src/wasm
-          cd ../gui && npm install && npm run build
+          cd wasm && wasm-pack build --target web --out-dir ../src/wasm
+          cd .. && npm install && npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gui/dist
+          publish_dir: ./dist
           publish_branch: gh-pages-wasm
           commit_message: "Deploy WASM branch to GitHub Pages"
