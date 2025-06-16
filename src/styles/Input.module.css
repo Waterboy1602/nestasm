@@ -1,0 +1,128 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.items {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.title {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.item {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+
+    width: 20vw;
+    min-width: 310px;
+    margin: 30px;
+}
+
+.input {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.itemValue {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 5px 0 5px 0;
+}
+
+div.checkboxContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+}
+
+div.checkboxContainer > input {
+    margin: 0;
+}
+
+hr {
+    width: calc(100% + 20px);
+    margin: 0 -10px;
+}
+
+input.number {
+    width: 40px;
+    margin: 0 5px 0 5px;
+}
+
+input.number.strip {
+    width: 50px;
+    margin: 0 5px 0 5px;
+}
+
+.degreeSymbolWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.degreeSymbolWrapper input {
+    padding-right: 5px; /* Add space for the degree symbol */
+}
+
+.degreeSymbolWrapper::after {
+    content: "°";
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevent interaction with the degree symbol */
+    padding-right: 10px;
+}
+
+.submit {
+    width: 100px;
+    margin: 0 auto;
+}
+
+.svgContainer {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.svgContainer svg {
+    width: 100%;
+    height: 100%;
+}
+
+.shape {
+    width: 150px;
+    height: 100px;
+    overflow: auto;
+    word-wrap: break-word;
+}
+
+.shape > ul {
+    font-size: 12px;
+}
+
+p {
+    font-weight: bold;
+    margin: 0;
+    min-width: 110px;
+}
+
+ul {
+    margin-top: 5px;
+    padding-left: 30px;
+}
