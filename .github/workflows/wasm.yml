@@ -1,0 +1,39 @@
+name: Deploy Jagua-rs webpage with React and WASM to GitHub Pages
+
+on:
+  push:
+    branches:
+      - wasm
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+
+      - name: Build Rust WASM and React Application
+        run: |
+          cargo install wasm-pack
+          cd wasm && wasm-pack build --target web --out-dir ../gui/src/wasm
+          cd ../gui && npm install && npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./gui/dist
+          publish_branch: gh-pages-wasm
+          commit_message: "Deploy WASM branch to GitHub Pages"
