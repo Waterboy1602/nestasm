@@ -14,12 +14,12 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Debug: Print current working directory
+      - name: "Debug: Print current working directory"
         run: pwd
 
-      - name: Debug: List contents of current directory
+      - name: "Debug: List contents of current directory"
         run: ls -la
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
