@@ -6,9 +6,9 @@ use jagua_rs::probs::spp;
 use jagua_rs::probs::spp::io::ext_repr::ExtSPInstance;
 use lbf::config::LBFConfig;
 use lbf::opt::lbf_spp::LBFOptimizerSP;
-use log::{log, Level};
-use rand::prelude::SmallRng;
+use log::{Level, log};
 use rand::SeedableRng;
+use rand::prelude::SmallRng;
 use serde_wasm_bindgen::from_value;
 use wasm_bindgen::prelude::*;
 
@@ -18,11 +18,8 @@ extern "C" {
     fn post_message_object_to_js(val: &JsValue);
 }
 
-#[cfg(feature = "console_error_panic_hook")]
 #[wasm_bindgen]
 pub fn run_lbf(json_input: JsValue) -> Result<(), JsValue> {
-    console_error_panic_hook::set_once();
-
     log!(Level::Info, "Started LBF optimization");
 
     let json_str: String = match from_value(json_input) {

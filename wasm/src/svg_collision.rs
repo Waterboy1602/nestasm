@@ -1,12 +1,12 @@
 use crate::enums::Status;
 
 use anyhow::Result;
-use log::{log, Level};
+use log::{Level, log};
 use serde_wasm_bindgen::{from_value, to_value};
 use std::collections::HashMap;
 use svg_collision::io::svg_parser::run_cde_wasm;
-use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
+use wasm_bindgen::prelude::*;
 use web_sys::console;
 
 #[wasm_bindgen]
@@ -32,11 +32,8 @@ pub fn svg_collision(js_value: JsValue) -> Result<JsValue, JsValue> {
     }
 }
 
-#[cfg(feature = "console_error_panic_hook")]
 #[wasm_bindgen]
 pub fn svg_collision_test(svg_input: JsValue) -> Result<(), JsValue> {
-    console_error_panic_hook::set_once();
-
     log!(Level::Info, "Started SVG collision test");
 
     let svg_str: String = match from_value(svg_input) {
