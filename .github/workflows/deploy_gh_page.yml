@@ -14,12 +14,6 @@ jobs:
         with:
           submodules: recursive
 
-      - name: "Debug: Print current working directory"
-        run: pwd
-
-      - name: "Debug: List contents of current directory"
-        run: ls -la
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -28,8 +22,9 @@ jobs:
       - name: Setup Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
+          toolchain: nightly
           profile: minimal
-          target: wasm32-unknown-unknown
+          override: true
 
       - name: Build Rust WASM and React Application
         run: |
