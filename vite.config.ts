@@ -4,34 +4,25 @@ import svgr from "vite-plugin-svgr";
 import wasm from "vite-plugin-wasm";
 
 // https://vite.dev/config/
-export default defineConfig(() => {
-  return {
-    base: "/nestasm",
-    plugins: [
-      react(),
-      svgr({
-        include: "**/*.svg?react", // Dit is belangrijk!
-        svgrOptions: {
-          ref: true,
-        },
-      }),
-      wasm(),
-    ],
-    server: {
-      headers: {
-        "Cross-Origin-Opener-Policy": "same-origin",
-        "Cross-Origin-Embedder-Policy": "require-corp",
+export default defineConfig({
+  base: "/nestasm",
+  plugins: [
+    react(),
+    svgr({
+      include: "**/*.svg?react", // Dit is belangrijk!
+      svgrOptions: {
+        ref: true,
       },
+    }),
+    wasm(),
+  ],
+  server: {
+    headers: {
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Embedder-Policy": "require-corp",
     },
-    build: {
-      rollupOptions: {
-        output: {
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
-          manualChunks: undefined,
-        },
-      },
-    },
-  };
+  },
+  worker: {
+    format: "es",
+  },
 });
