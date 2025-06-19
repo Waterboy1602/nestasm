@@ -24,7 +24,18 @@ self.onmessage = async (event) => {
           message: `Wasm logger successfully initialized`,
         });
       } catch (logger_err) {
-        console.error("Failed to apply WASM logger:", logger_err); // <-- THIS IS CRUCIAL
+        console.error("Failed to apply WASM logger:", logger_err);
+      }
+
+      try {
+        const numThreads = navigator.hardwareConcurrency || 3;
+        await wasm.initThreadPool(numThreads);
+        self.postMessage({
+          type: Status.PROCESSING,
+          message: `Wasm thread pool successfully initialized`,
+        });
+      } catch (thread_err) {
+        console.error("Failed to initialize WASM thread pool:", thread_err);
       }
     } catch (e) {
       self.postMessage({ type: Status.ERROR, message: "Wasm initialization failed: " + e });
