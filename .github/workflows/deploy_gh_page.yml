@@ -24,7 +24,7 @@ jobs:
         with:
           toolchain: nightly
           profile: minimal
-          override: true
+          components: rust-src
 
       - name: Build Rust WASM and React Application
         run: |
