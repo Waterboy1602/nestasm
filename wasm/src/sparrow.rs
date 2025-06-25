@@ -22,8 +22,6 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn run_sparrow(json_input: JsValue) -> Result<(), JsValue> {
-    console_error_panic_hook::set_once();
-
     log!(Level::Info, "Started LBF optimization");
 
     let json_str: String = match from_value(json_input) {
