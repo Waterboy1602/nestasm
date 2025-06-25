@@ -1,128 +1,222 @@
 .container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .items {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .title {
-    text-align: center;
-    margin-top: 20px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .item {
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
 
-    width: 20vw;
-    min-width: 310px;
-    margin: 30px;
+  width: 20vw;
+  min-width: 310px;
+  margin: 30px;
 }
 
 .input {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }
 
 .itemValue {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 5px 0 5px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 5px 0 5px 0;
 }
 
 div.checkboxContainer {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    height: 40px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 40px;
 }
 
 div.checkboxContainer > input {
-    margin: 0;
+  margin: 0;
 }
 
 hr {
-    width: calc(100% + 20px);
-    margin: 0 -10px;
+  width: calc(100%-20px);
+  margin: 10px 0;
 }
 
 input.number {
-    width: 40px;
-    margin: 0 5px 0 5px;
+  width: 40px;
+  margin: 0 5px 0 5px;
 }
 
 input.number.strip {
-    width: 50px;
-    margin: 0 5px 0 5px;
+  width: 50px;
+  margin: 0 5px 0 5px;
 }
 
 .degreeSymbolWrapper {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .degreeSymbolWrapper input {
-    padding-right: 5px; /* Add space for the degree symbol */
+  padding-right: 5px; /* Add space for the degree symbol */
 }
 
 .degreeSymbolWrapper::after {
-    content: "°";
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none; /* Prevent interaction with the degree symbol */
-    padding-right: 10px;
+  content: "°";
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevent interaction with the degree symbol */
+  padding-right: 10px;
 }
 
 .submit {
-    width: 100px;
-    margin: 0 auto;
+  width: 100px;
+  margin: 0 auto;
 }
 
 .svgContainer {
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: visible;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
 }
 
 .svgContainer svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .shape {
-    width: 150px;
-    height: 100px;
-    overflow: auto;
-    word-wrap: break-word;
+  width: 150px;
+  height: 100px;
+  overflow: auto;
+  word-wrap: break-word;
 }
 
 .shape > ul {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 p {
-    font-weight: bold;
-    margin: 0;
-    min-width: 110px;
+  font-weight: bold;
+  margin: 0;
+  min-width: 110px;
 }
 
 ul {
-    margin-top: 5px;
-    padding-left: 30px;
+  margin-top: 5px;
+  padding-left: 30px;
+}
+
+.forms {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.forms > div {
+  margin: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.label {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.subLabel {
+  font-size: 14px;
+  color: #333;
+}
+
+.button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 0;
+  margin: 20px 0 0 0;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.algoDropdown {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 10px 0;
+  background: #fff;
+  color: #333;
+}
+
+.loader {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #555;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+div.objects {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 90%;
 }

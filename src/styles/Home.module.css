@@ -142,6 +142,9 @@ div.container.solution > img {
 
   width: 70%;
   margin-top: 1em;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
   padding: 1em;
   max-height: 200px;
   overflow-y: auto;

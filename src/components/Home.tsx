@@ -1,13 +1,18 @@
-import { useState, Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { useState, Dispatch, SetStateAction, useEffect, useRef, useCallback } from "react";
 // import { useNavigate } from "react-router-dom";
 import styles from "../styles/Home.module.css";
 import { FileType, Status, OptimizationAlgo } from "../Enums";
+import ChangeInputFile from "./InputOverview";
+import { Config } from "../interfaces/interfaces";
 
 interface HomeProps {
   svgResult: string | null;
   setSvgResult: Dispatch<SetStateAction<string | null>>;
   logs: string[];
   setLogs: Dispatch<SetStateAction<string[]>>;
+  showChangeInput: boolean;
+  setShowChangeInput: Dispatch<SetStateAction<boolean>>;
+  config: Config;
 }
 // interface ParsedJson {
 //   [key: string]: unknown;
@@ -21,15 +26,46 @@ interface FileChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   target: HTMLInputElement & { files: FileList };
 }
 
-function Home({ svgResult, setSvgResult, logs, setLogs }: HomeProps) {
+function Home({
+  svgResult,
+  setSvgResult,
+  logs,
+  setLogs,
+  showChangeInput,
+  setShowChangeInput,
+}: HomeProps) {
   const [file, setFile] = useState<File | null>(null);
-  const [optimizationAlgo, setOptimizationAlgo] = useState(OptimizationAlgo.LBF);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [useDemoFile, setUseDemoFile] = useState(true);
+  const [changeInputFile, setChangeInputFile] = useState(false);
+  const [optimizationAlgo, setOptimizationAlgo] = useState(OptimizationAlgo.SPARROW);
+  const [loading, setLoading] = useState(false);
   const logBoxRef = useRef<HTMLDivElement>(null);
-
   const workerRef = useRef<Worker | null>(null);
+  const fileContent = useRef<string | null>(null);
+
+  const calcEvalAvg = useCallback((logs: string[]): string | null => {
+    const regex = /evals\/s:\s*(\d+\.?\d*)/;
+    let evalsPerSecond = 0;
+    let amountOfEvals = 0;
+
+    logs.forEach((log) => {
+      if (log.includes("evals/s")) {
+        const value = log.match(regex);
+        if (value) {
+          evalsPerSecond += parseFloat(value[1]);
+          amountOfEvals++;
+        }
+      }
+    });
+
+    if (amountOfEvals > 0) {
+      const avgEvalsPerSecond = evalsPerSecond / amountOfEvals;
+      return avgEvalsPerSecond.toFixed(2);
+    }
+
+    return null;
+  }, []);
 
   useEffect(() => {
     workerRef.current = new Worker(new URL("../services/wasmWorker.ts", import.meta.url), {
@@ -37,11 +73,29 @@ function Home({ svgResult, setSvgResult, logs, setLogs }: HomeProps) {
     });
 
     workerRef.current.onmessage = (event) => {
+      if (Array.isArray(event.data)) {
+        setLogs((prevLogs: string[]) => [
+          ...prevLogs,
+          ...event.data.map((entry: { message?: string }) => entry.message ?? String(entry)),
+        ]);
+
+        return;
+      }
+
       const { type, message, result } = event.data;
 
       if (type === Status.FINISHED) {
         setSvgResult(result);
-        setLogs((prevLogs) => [...prevLogs, `Finished`]);
+        setLogs((prevLogs) => {
+          const logs = [...prevLogs, `Finished`];
+
+          const evalAvg = calcEvalAvg(logs);
+          if (evalAvg) {
+            logs.push(`Average evals/s: ${evalAvg}`);
+          }
+
+          return logs;
+        });
         setLoading(false);
       } else if (type === Status.ERROR) {
         setLogs((prevLogs) => [...prevLogs, `Error: ${message}`]);
@@ -56,7 +110,7 @@ function Home({ svgResult, setSvgResult, logs, setLogs }: HomeProps) {
         workerRef.current = null;
       }
     };
-  }, [setLogs, setSvgResult]);
+  }, [setLogs, setSvgResult, calcEvalAvg]);
 
   useEffect(() => {
     if (logBoxRef.current) {
@@ -66,21 +120,21 @@ function Home({ svgResult, setSvgResult, logs, setLogs }: HomeProps) {
 
   const startOptimization = (
     optimizationAlgo: OptimizationAlgo,
-    svgInput: string,
+    input: string,
     fileType: FileType
   ): void => {
     setLogs([]);
     if (workerRef.current) {
       workerRef.current.postMessage({
         type: Status.START,
-        payload: { optimizationAlgo: optimizationAlgo, svgInput: svgInput, fileType: fileType },
+        payload: { optimizationAlgo: optimizationAlgo, input: input, fileType: fileType },
       });
+      setLoading(true);
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleUpload = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    setLoading(true);
     setError(null);
 
     if (useDemoFile) {
@@ -90,8 +144,13 @@ function Home({ svgResult, setSvgResult, logs, setLogs }: HomeProps) {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const fileContent = await response.text();
-        startOptimization(optimizationAlgo, fileContent, FileType.JSON);
+        fileContent.current = await response.text();
+
+        if (changeInputFile) {
+          setShowChangeInput(true);
+        } else {
+          startOptimization(optimizationAlgo, fileContent.current, FileType.JSON);
+        }
       } catch (e) {
         setError("Failed to load demo file: " + e);
       }
@@ -103,36 +162,35 @@ function Home({ svgResult, setSvgResult, logs, setLogs }: HomeProps) {
       const reader = new FileReader();
 
       reader.onload = async (e) => {
-        const fileContent = e.target?.result as string;
+        fileContent.current = e.target?.result as string;
 
-        try {
-          if (file.type === "image/svg+xml") {
-            startOptimization(optimizationAlgo, fileContent, FileType.SVG);
-          }
+        // try {
+        //   if (file.type === "image/svg+xml") {
+        //     startOptimization(optimizationAlgo, fileContent.current, FileType.SVG);
+        //   }
 
-          if (file.type === "application/json") {
-            // const parsedInput: ParsedJson = JSON.parse(fileContent);
+        //   if (file.type === "application/json") {
+        //     // const parsedInput: ParsedJson = JSON.parse(fileContent);
 
-            // navigate("/input", {
-            //   state: { input: parsedInput } as NavigateState,
-            // });
+        //     // navigate("/input", {
+        //     //   state: { input: parsedInput } as NavigateState,
+        //     // });
 
-            startOptimization(optimizationAlgo, fileContent, FileType.JSON);
-          }
-        } catch (wasmError) {
-          setError("WASM processing error: " + wasmError);
-        }
+        //     startOptimization(optimizationAlgo, fileContent.current, FileType.JSON);
+        //   }
+        // } catch (wasmError) {
+        //   setError("WASM processing error: " + wasmError);
+        // }
       };
 
       reader.onerror = () => {
         setError("Error reading the file. Please try again.");
-        setLoading(false);
       };
 
       reader.readAsText(file);
+      setShowChangeInput(true);
     } else {
       setError("Please upload a file.");
-      setLoading(false);
     }
   };
 
@@ -160,51 +218,21 @@ function Home({ svgResult, setSvgResult, logs, setLogs }: HomeProps) {
     }
   };
 
-  if (!svgResult) {
+  const handleChangeInputFile = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.checked) {
+      setChangeInputFile(true);
+    } else {
+      setChangeInputFile(false);
+    }
+  };
+
+  if (svgResult) {
     return (
-      <div className={styles.home}>
-        <div className={styles.forms}>
-          <div>
-            <form onSubmit={(event) => handleSubmit(event)} className={styles.form}>
-              <label className={styles.label}>Upload an input file</label>
-              <label className={styles.subLabel}>SVG or JSON</label>
-              <input
-                type="file"
-                accept="image/svg+xml, application/json"
-                onChange={handleFileChange}
-                className={styles.inputFile}
-              />
-
-              <label className={styles.demoCheckboxWrapper}>
-                <input
-                  type="checkbox"
-                  defaultChecked={useDemoFile}
-                  onChange={handleUseDemoChange}
-                  className={styles.demoCheckbox}
-                />
-                <span className={styles.demoLabel}>Use demo file</span>
-              </label>
-
-              <label className={styles.label} htmlFor="dropdown">
-                Algorithm
-              </label>
-              <select
-                id="optAlgoDropdown"
-                className={styles.algoDropdown}
-                onChange={(e) => setOptimizationAlgo(e.target.value as OptimizationAlgo)}
-              >
-                <option value={OptimizationAlgo.LBF}>LBF</option>
-                <option value={OptimizationAlgo.SPARROW}>SPARROW</option>
-              </select>
-
-              <button type="submit" className={styles.button} disabled={loading}>
-                {loading ? <span className={styles.loader} /> : "Submit"}
-              </button>
-            </form>
-
-            {error && <p style={{ color: "red" }}>{error}</p>}
-          </div>
-        </div>
+      <>
+        <div
+          dangerouslySetInnerHTML={{ __html: svgResult }}
+          style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}
+        />
 
         {logs.length > 0 && (
           <div className={styles.logBox} ref={logBoxRef}>
@@ -216,16 +244,110 @@ function Home({ svgResult, setSvgResult, logs, setLogs }: HomeProps) {
             </ul>
           </div>
         )}
-      </div>
-    );
-  } else {
-    return (
-      <div
-        dangerouslySetInnerHTML={{ __html: svgResult }}
-        style={{ width: "100%", height: "100%" }}
-      />
+      </>
     );
   }
+
+  if (showChangeInput) {
+    return (
+      <>
+        <ChangeInputFile fileContent={fileContent.current} startOptimization={startOptimization} />
+
+        {logs.length > 0 && (
+          <div className={styles.logBox} ref={logBoxRef}>
+            <h4>Logs</h4>
+            <ul>
+              {logs.map((log, idx) => (
+                <li key={idx}>{log}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </>
+    );
+  }
+
+  return (
+    <div className={styles.home}>
+      <div className={styles.forms}>
+        <div>
+          <form onSubmit={(event) => handleUpload(event)} className={styles.form}>
+            <label className={styles.label}>Upload an input file</label>
+            <label className={styles.subLabel}>SVG or JSON</label>
+            <input
+              type="file"
+              accept="image/svg+xml, application/json"
+              onChange={handleFileChange}
+              className={styles.inputFile}
+            />
+
+            <label className={styles.demoCheckboxWrapper}>
+              <input
+                type="checkbox"
+                defaultChecked={useDemoFile}
+                onChange={handleUseDemoChange}
+                className={styles.demoCheckbox}
+              />
+              <span className={styles.demoLabel}>Use demo file</span>
+            </label>
+
+            <label className={styles.demoCheckboxWrapper}>
+              <input
+                type="checkbox"
+                defaultChecked={changeInputFile}
+                onChange={handleChangeInputFile}
+                className={styles.demoCheckbox}
+              />
+              <span className={styles.demoLabel}>Edit input file</span>
+            </label>
+
+            {!changeInputFile && (
+              <>
+                <label className={styles.label} htmlFor="dropdown">
+                  Algorithm
+                </label>
+
+                <select
+                  id="optAlgoDropdown"
+                  className={styles.algoDropdown}
+                  value={optimizationAlgo}
+                  onChange={(e) => setOptimizationAlgo(e.target.value as OptimizationAlgo)}
+                >
+                  <option value={OptimizationAlgo.LBF}>LBF</option>
+                  <option value={OptimizationAlgo.SPARROW} defaultChecked>
+                    SPARROW
+                  </option>
+                </select>
+              </>
+            )}
+
+            <button type="submit" className={styles.button} disabled={loading}>
+              {changeInputFile ? (
+                "Upload file"
+              ) : loading ? (
+                <span className={styles.loader} />
+              ) : (
+                "Start optimization"
+              )}
+            </button>
+          </form>
+
+          {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
+      </div>
+
+      {logs.length > 0 && (
+        <div className={styles.logBox} ref={logBoxRef}>
+          <h4>Logs</h4>
+          <ul>
+            {logs.map((log, idx) => (
+              <li key={idx}>{log}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Home;

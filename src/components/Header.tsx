@@ -60,7 +60,12 @@ function Header({ config, setConfig, onHomeClick }: HeaderProps) {
   return (
     <header className={styles.header}>
       {location.pathname !== "/solution" && (
-        <Link to="/" className={styles.container} style={{ justifyContent: "flex-start" }}>
+        <Link
+          to="/"
+          className={styles.container}
+          style={{ justifyContent: "flex-start" }}
+          onClick={onHomeClick}
+        >
           <FontAwesomeIcon icon={faHome} size="2x" className={styles.icon} />
         </Link>
       )}

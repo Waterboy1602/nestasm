@@ -47,15 +47,15 @@ self.onmessage = async (event) => {
 
   if (type === Status.START) {
     self.postMessage({ type: Status.PROCESSING, message: `Wasm computation started` });
-    const svgInput = payload.svgInput;
+    const input = payload.input;
     try {
       if (payload.fileType === FileType.SVG) {
-        await wasm.svg_collision_test(svgInput);
+        await wasm.svg_collision_test(input);
       } else if (payload.fileType === FileType.JSON) {
         if (payload.optimizationAlgo === OptimizationAlgo.LBF) {
-          await wasm.run_lbf(svgInput);
+          await wasm.run_lbf(input);
         } else if (payload.optimizationAlgo === OptimizationAlgo.SPARROW) {
-          await wasm.run_sparrow(svgInput);
+          await wasm.run_sparrow(input);
         }
       }
     } catch (e) {
