@@ -1,5 +1,6 @@
 use crate::enums::Status;
 
+use crate::logger;
 use anyhow::{Context, Result};
 use jagua_rs::io::import::Importer;
 use jagua_rs::io::svg::s_layout_to_svg;
@@ -80,13 +81,10 @@ pub fn run_sparrow(json_input: JsValue) -> Result<(), JsValue> {
         compress_dur,
     );
 
-    let svg_result = s_layout_to_svg(
-        &sol.layout_snapshot,
-        &instance,
-        DRAW_OPTIONS,
-        "SPARROW TEST",
-    )
-    .to_string();
+    logger::flush_logs();
+
+    let svg_result =
+        s_layout_to_svg(&sol.layout_snapshot, &instance, DRAW_OPTIONS, "SPARROW").to_string();
 
     let final_obj = js_sys::Object::new();
     js_sys::Reflect::set(

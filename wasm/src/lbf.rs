@@ -1,4 +1,5 @@
 use crate::enums::Status;
+use crate::logger;
 use anyhow::{Context, Result};
 use jagua_rs::io::import::Importer;
 use jagua_rs::io::svg::s_layout_to_svg;
@@ -49,8 +50,15 @@ pub fn run_lbf(json_input: JsValue) -> Result<(), JsValue> {
     let instance = spp::io::import(&importer, &ext_sp_instance).unwrap();
     let sol = LBFOptimizerSP::new(instance.clone(), config, rng).solve();
 
-    let svg_result =
-        s_layout_to_svg(&sol.layout_snapshot, &instance, config.svg_draw_options, "").to_string();
+    let svg_result = s_layout_to_svg(
+        &sol.layout_snapshot,
+        &instance,
+        config.svg_draw_options,
+        "LBF",
+    )
+    .to_string();
+
+    logger::flush_logs();
 
     let final_obj = js_sys::Object::new();
     js_sys::Reflect::set(
