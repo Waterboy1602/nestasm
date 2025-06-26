@@ -21,7 +21,7 @@ function ChangeInputFile({ fileContent, startOptimization }: ChangeInputFileProp
   const [items, setItems] = useState<Item[]>(input.items);
   const [selected, setSelected] = useState<boolean[]>(new Array(input.items.length).fill(true));
   const [stripHeight, setStripHeight] = useState<number>(input.strip_height);
-  const [deletedItems, setDeletedItems] = useState<Item[]>([]);
+  const [deletedItems] = useState<Item[]>([]);
   const svgScale = useRef<number[]>([0, 0]);
 
   useEffect(() => {
@@ -77,8 +77,8 @@ function ChangeInputFile({ fileContent, startOptimization }: ChangeInputFileProp
   };
 
   const SvgComponent = ({ shape, svgScale }: { shape: Shape; svgScale: number[] }) => {
-    const maxX = Math.max(...shape.data.map((p) => p[0]));
-    const maxY = Math.max(...shape.data.map((p) => p[1]));
+    // const maxX = Math.max(...shape.data.map((p) => p[0]));
+    // const maxY = Math.max(...shape.data.map((p) => p[1]));
     const minX = Math.min(...shape.data.map((p) => p[0]));
     const minY = Math.min(...shape.data.map((p) => p[1]));
     const points = shape.data.map((p) => `${p[0]},${p[1]}`).join(" ");
@@ -183,7 +183,7 @@ function ChangeInputFile({ fileContent, startOptimization }: ChangeInputFileProp
     ));
   };
 
-  const renderItems2 = (items: Item[], selected: boolean[]) => {
+  const renderItems2 = (items: Item[]) => {
     return items.map((item, index) => (
       <SvgComponent key={`svg-${index}`} shape={item.shape} svgScale={svgScale.current} />
     ));
@@ -283,7 +283,7 @@ function ChangeInputFile({ fileContent, startOptimization }: ChangeInputFileProp
                   />
                 </svg>{" "}
               </div>
-              {renderItems2(input.items, selected)}
+              {renderItems2(input.items)}
             </div>
           </div>
 
