@@ -54,7 +54,7 @@ div.checkboxContainer > input {
 }
 
 hr {
-  width: calc(100%-20px);
+  width: calc(100% - 20px);
   margin: 10px 0;
 }
 

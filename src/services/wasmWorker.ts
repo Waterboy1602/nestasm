@@ -3,6 +3,8 @@ import { FileType, Status, OptimizationAlgo } from "../Enums";
 import initWasm, * as wasm from "../wasm/wasm_jagua_rs";
 
 let wasmInitialized = false;
+let wasmThreadPoolInitialized = false;
+const numThreads = navigator.hardwareConcurrency || 3;
 
 self.onmessage = async (event) => {
   if (!wasmInitialized) {
@@ -28,14 +30,14 @@ self.onmessage = async (event) => {
       }
 
       try {
-        const numThreads = navigator.hardwareConcurrency || 3;
         await wasm.initThreadPool(numThreads);
-        self.postMessage({
-          type: Status.PROCESSING,
-          message: `Wasm thread pool successfully initialized`,
-        });
+        wasmThreadPoolInitialized = true;
       } catch (thread_err) {
         console.error("Failed to initialize WASM thread pool:", thread_err);
+        self.postMessage({
+          type: Status.PROCESSING,
+          message: `Failed to initialize WASM thread pool: ${thread_err}`,
+        });
       }
     } catch (e) {
       self.postMessage({ type: Status.ERROR, message: "Wasm initialization failed: " + e });
@@ -46,6 +48,12 @@ self.onmessage = async (event) => {
   const { type, payload } = event.data;
 
   if (type === Status.START) {
+    if (wasmThreadPoolInitialized) {
+      self.postMessage({
+        type: Status.PROCESSING,
+        message: `Wasm thread pool successfully initialized with ${numThreads} threads`,
+      });
+    }
     self.postMessage({ type: Status.PROCESSING, message: `Wasm computation started` });
     const input = payload.input;
     try {

@@ -2,7 +2,6 @@ use crate::enums::Status;
 use js_sys::Array;
 use log::{Level, LevelFilter, log};
 use std::cell::RefCell;
-use std::rc::Rc;
 use wasm_bindgen::prelude::*;
 use web_sys::*;
 use web_time::Instant;
