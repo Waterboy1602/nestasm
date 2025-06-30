@@ -44,27 +44,20 @@ function Home({
   const workerRef = useRef<Worker | null>(null);
   const fileContent = useRef<string | null>(null);
 
-  const calcEvalAvg = useCallback((logs: string[]): string | null => {
+  const getMaxEval = useCallback((logs: string[]): string | null => {
     const regex = /evals\/s:\s*(\d+\.?\d*)/;
-    let evalsPerSecond = 0;
-    let amountOfEvals = 0;
+    let maxEvalPerSecond = 0;
 
     logs.forEach((log) => {
       if (log.includes("evals/s")) {
         const value = log.match(regex);
-        if (value) {
-          evalsPerSecond += parseFloat(value[1]);
-          amountOfEvals++;
+        if (value && parseFloat(value[1]) > maxEvalPerSecond) {
+          maxEvalPerSecond = parseFloat(value[1]);
         }
       }
     });
 
-    if (amountOfEvals > 0) {
-      const avgEvalsPerSecond = evalsPerSecond / amountOfEvals;
-      return avgEvalsPerSecond.toFixed(2);
-    }
-
-    return null;
+    return maxEvalPerSecond > 0 ? maxEvalPerSecond.toFixed(2) : null;
   }, []);
 
   useEffect(() => {
@@ -89,9 +82,9 @@ function Home({
         setLogs((prevLogs) => {
           const logs = [...prevLogs, `Finished`];
 
-          const evalAvg = calcEvalAvg(logs);
-          if (evalAvg) {
-            logs.push(`Average evals/s: ${evalAvg}`);
+          const maxEval = getMaxEval(logs);
+          if (maxEval) {
+            logs.push(`Max evals/s: ${maxEval} K`);
           }
 
           return logs;
@@ -110,7 +103,7 @@ function Home({
         workerRef.current = null;
       }
     };
-  }, [setLogs, setSvgResult, calcEvalAvg]);
+  }, [setLogs, setSvgResult, getMaxEval]);
 
   useEffect(() => {
     if (logBoxRef.current) {
@@ -123,11 +116,14 @@ function Home({
     input: string,
     fileType: FileType
   ): void => {
-    setLogs([]);
     if (workerRef.current) {
       workerRef.current.postMessage({
         type: Status.START,
-        payload: { optimizationAlgo: optimizationAlgo, input: input, fileType: fileType },
+        payload: {
+          optimizationAlgo: optimizationAlgo,
+          input: input,
+          fileType: fileType,
+        },
       });
       setLoading(true);
     }
@@ -288,7 +284,7 @@ function Home({
                 onChange={handleUseDemoChange}
                 className={styles.demoCheckbox}
               />
-              <span className={styles.demoLabel}>Use demo file</span>
+              <span className={styles.demoLabel}>Use JSON demo file</span>
             </label>
 
             <label className={styles.demoCheckboxWrapper}>
