@@ -9,6 +9,8 @@ export enum Status {
   PROCESSING = "processing",
   FINISHED = "finished",
   ERROR = "error",
+  CANCEL = "cancel",
+  INIT_SHARED_MEMORY = "init_shared_memory",
 }
 
 export enum OptimizationAlgo {

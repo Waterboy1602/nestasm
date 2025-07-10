@@ -1,6 +1,7 @@
 use crate::enums::Status;
 
 use crate::logger;
+use crate::terminator::WasmTerminator;
 use anyhow::{Context, Result};
 use jagua_rs::io::import::Importer;
 use jagua_rs::io::svg::s_layout_to_svg;
@@ -10,8 +11,8 @@ use rand::SeedableRng;
 use rand::prelude::SmallRng;
 use serde_wasm_bindgen::from_value;
 use sparrow::config::*;
-use sparrow::optimizer::Terminator;
 use sparrow::optimizer::optimize;
+use sparrow::util::listener::DummySolListener;
 use std::time::Duration;
 use wasm_bindgen::prelude::*;
 
@@ -70,13 +71,13 @@ pub fn run_sparrow(json_input: JsValue) -> Result<(), JsValue> {
         instance.total_item_qty()
     );
 
-    let terminator = Terminator::new_with_ctrlc_handler();
+    let mut wasm_terminator = WasmTerminator::new();
 
     let sol = optimize(
         instance.clone(),
         rng,
-        "".to_string(),
-        terminator,
+        &mut DummySolListener,
+        &mut wasm_terminator,
         explore_dur,
         compress_dur,
     );

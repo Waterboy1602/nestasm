@@ -26,6 +26,9 @@ interface FileChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   target: HTMLInputElement & { files: FileList };
 }
 
+let algorithmWorker: Worker | null = null;
+let cancelWorker: Worker | null = null;
+
 function Home({
   svgResult,
   setSvgResult,
@@ -40,8 +43,8 @@ function Home({
   const [changeInputFile, setChangeInputFile] = useState(false);
   const [optimizationAlgo, setOptimizationAlgo] = useState(OptimizationAlgo.SPARROW);
   const [loading, setLoading] = useState(false);
+  const [compressingPhase, setCompressingPhase] = useState(false);
   const logBoxRef = useRef<HTMLDivElement>(null);
-  const workerRef = useRef<Worker | null>(null);
   const fileContent = useRef<string | null>(null);
 
   const getMaxEval = useCallback((logs: string[]): string | null => {
@@ -61,11 +64,11 @@ function Home({
   }, []);
 
   useEffect(() => {
-    workerRef.current = new Worker(new URL("../services/wasmWorker.ts", import.meta.url), {
+    algorithmWorker = new Worker(new URL("../services/algorithmWorker.ts", import.meta.url), {
       type: "module",
     });
 
-    workerRef.current.onmessage = (event) => {
+    algorithmWorker.onmessage = (event) => {
       if (Array.isArray(event.data)) {
         setLogs((prevLogs: string[]) => [
           ...prevLogs,
@@ -76,6 +79,12 @@ function Home({
       }
 
       const { type, message, result } = event.data;
+
+      if (type === Status.INIT_SHARED_MEMORY) {
+        initCancelWorker(result.sharedArrayBuffer, result.terminateFlagOffset);
+
+        return;
+      }
 
       if (type === Status.FINISHED) {
         setSvgResult(result);
@@ -89,18 +98,25 @@ function Home({
 
           return logs;
         });
+
         setLoading(false);
-      } else if (type === Status.ERROR) {
-        setLogs((prevLogs) => [...prevLogs, `Error: ${message}`]);
-      } else {
-        setLogs((prevLogs) => [...prevLogs, message]);
+        setCompressingPhase(false);
+
+        return;
       }
+
+      if (type === Status.ERROR) {
+        setLogs((prevLogs) => [...prevLogs, `Error: ${message}`]);
+        return;
+      }
+
+      setLogs((prevLogs) => [...prevLogs, message]);
     };
 
     return () => {
-      if (workerRef.current) {
-        workerRef.current.terminate();
-        workerRef.current = null;
+      if (algorithmWorker) {
+        algorithmWorker.terminate();
+        algorithmWorker = null;
       }
     };
   }, [setLogs, setSvgResult, getMaxEval]);
@@ -116,17 +132,39 @@ function Home({
     input: string,
     fileType: FileType
   ): void => {
-    if (workerRef.current) {
-      workerRef.current.postMessage({
-        type: Status.START,
-        payload: {
-          optimizationAlgo: optimizationAlgo,
-          input: input,
-          fileType: fileType,
-        },
-      });
-      setLoading(true);
+    if (algorithmWorker) {
+      if (!loading) {
+        algorithmWorker.postMessage({
+          type: Status.START,
+          payload: {
+            optimizationAlgo: optimizationAlgo,
+            input: input,
+            fileType: fileType,
+          },
+        });
+
+        setLoading(true);
+      } else {
+        if (cancelWorker) {
+          cancelWorker.postMessage({ type: Status.CANCEL, payload: {} });
+          setCompressingPhase(true);
+        }
+      }
     }
+  };
+
+  const initCancelWorker = (sharedArrayBuffer: SharedArrayBuffer, offset: number): void => {
+    cancelWorker = new Worker(new URL("../services/cancelWorker.ts", import.meta.url), {
+      type: "module",
+    });
+
+    cancelWorker.postMessage({
+      type: Status.INIT_SHARED_MEMORY,
+      payload: {
+        wasmMemoryBuffer: sharedArrayBuffer,
+        terminateFlagOffset: offset,
+      },
+    });
   };
 
   const handleUpload = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
@@ -220,6 +258,30 @@ function Home({
     } else {
       setChangeInputFile(false);
     }
+  };
+
+  const buttonTextContent = () => {
+    if (changeInputFile) {
+      return "Upload file";
+    }
+
+    if (compressingPhase) {
+      return (
+        <>
+          <span className={styles.loader} /> Cancel compressing
+        </>
+      );
+    }
+
+    if (loading) {
+      return (
+        <>
+          <span className={styles.loader} /> Cancel exploring
+        </>
+      );
+    }
+
+    return "Start optimization";
   };
 
   if (svgResult) {
@@ -317,14 +379,8 @@ function Home({
               </>
             )}
 
-            <button type="submit" className={styles.button} disabled={loading}>
-              {changeInputFile ? (
-                "Upload file"
-              ) : loading ? (
-                <span className={styles.loader} />
-              ) : (
-                "Start optimization"
-              )}
+            <button type="submit" className={styles.button}>
+              {buttonTextContent()}
             </button>
           </form>
 

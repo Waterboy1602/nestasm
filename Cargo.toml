@@ -36,7 +36,8 @@ geo-buffer = "0.2"
 jagua-rs = { path = "./jagua-rs/jagua-rs"  , features = ["spp", "bpp"] }
 lbf = { path = "./jagua-rs/lbf" }
 svg_collision = { path = "./svg_collision_detector" }
-sparrow = { features = ["only_final_svg"], path = "./sparrow" }
+sparrow = {path = "./sparrow", features = ["only_final_svg", "simd"] }
+
 
 [profile.release]
 opt-level = 3

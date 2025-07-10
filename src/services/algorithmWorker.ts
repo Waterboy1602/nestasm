@@ -3,17 +3,17 @@ import { FileType, Status, OptimizationAlgo } from "../Enums";
 import initWasm, * as wasm from "../wasm/wasm_jagua_rs";
 
 let wasmInitialized = false;
-let wasmThreadPoolInitialized = false;
 const numThreads = navigator.hardwareConcurrency || 3;
 
 self.onmessage = async (event) => {
+  // !ALWAYS FIRST INIT WASM
   if (!wasmInitialized) {
     try {
-      await initWasm();
+      const wasmInstance = await initWasm();
       wasmInitialized = true;
 
       try {
-        // Level of logging to apply in the WASM module.`
+        // Level of logging to apply in the WASM module
         // 0 => Off,
         // 1 => Error,
         // 2 => Warn,
@@ -31,7 +31,10 @@ self.onmessage = async (event) => {
 
       try {
         await wasm.initThreadPool(numThreads);
-        wasmThreadPoolInitialized = true;
+        self.postMessage({
+          type: Status.PROCESSING,
+          message: `Wasm thread pool successfully initialized with ${numThreads} threads`,
+        });
       } catch (thread_err) {
         console.error("Failed to initialize WASM thread pool:", thread_err);
         self.postMessage({
@@ -39,6 +42,23 @@ self.onmessage = async (event) => {
           message: `Failed to initialize WASM thread pool: ${thread_err}`,
         });
       }
+
+      const wasmMemoryBuffer = wasmInstance.memory.buffer;
+
+      if (!(wasmMemoryBuffer instanceof SharedArrayBuffer)) {
+        throw new Error("WASM memory is not a SharedArrayBuffer! Check headers and build flags.");
+      }
+
+      const offset = wasm.get_terminate_flag_offset();
+
+      self.postMessage({
+        type: Status.INIT_SHARED_MEMORY,
+        message: "Worker: Shared memory initialized successfully.",
+        result: {
+          sharedArrayBuffer: wasmMemoryBuffer,
+          terminateFlagOffset: offset,
+        },
+      });
     } catch (e) {
       self.postMessage({ type: Status.ERROR, message: "Wasm initialization failed: " + e });
       return;
@@ -48,22 +68,17 @@ self.onmessage = async (event) => {
   const { type, payload } = event.data;
 
   if (type === Status.START) {
-    if (wasmThreadPoolInitialized) {
-      self.postMessage({
-        type: Status.PROCESSING,
-        message: `Wasm thread pool successfully initialized with ${numThreads} threads`,
-      });
-    }
     self.postMessage({ type: Status.PROCESSING, message: `Wasm computation started` });
     const input = payload.input;
+
     try {
       if (payload.fileType === FileType.SVG) {
-        await wasm.svg_collision_test(input);
+        wasm.svg_collision_test(input);
       } else if (payload.fileType === FileType.JSON) {
         if (payload.optimizationAlgo === OptimizationAlgo.LBF) {
-          await wasm.run_lbf(input);
+          wasm.run_lbf(input);
         } else if (payload.optimizationAlgo === OptimizationAlgo.SPARROW) {
-          await wasm.run_sparrow(input);
+          wasm.run_sparrow(input);
         }
       }
     } catch (e) {
