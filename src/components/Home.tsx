@@ -3,7 +3,6 @@ import { useState, Dispatch, SetStateAction, useEffect, useRef, useCallback } fr
 import styles from "../styles/Home.module.css";
 import { FileType, Status, OptimizationAlgo } from "../Enums";
 import ChangeInputFile from "./InputOverview";
-import { Config } from "../interfaces/interfaces";
 
 interface HomeProps {
   svgResult: string | null;
@@ -12,7 +11,6 @@ interface HomeProps {
   setLogs: Dispatch<SetStateAction<string[]>>;
   showChangeInput: boolean;
   setShowChangeInput: Dispatch<SetStateAction<boolean>>;
-  config: Config;
 }
 // interface ParsedJson {
 //   [key: string]: unknown;

@@ -26,11 +26,6 @@
   min-width: fit-content;
 }
 
-.container > img {
-  height: 100%;
-  object-fit: contain;
-}
-
 a {
   text-decoration: none;
 }
@@ -42,92 +37,4 @@ a {
 
 .icon:hover {
   color: black;
-}
-
-.settingsPanel {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  border-radius: 8px;
-}
-
-.settingsPanel h2 {
-  margin-top: 0;
-}
-
-.settingsPanel form {
-  display: flex;
-  flex-direction: column;
-}
-
-.settingsPanel label {
-  margin-bottom: 10px;
-}
-
-.input {
-  margin: 2px 50px 2px 0;
-  padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  width: 75px;
-}
-
-.degreeSymbolWrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.degreeSymbolWrapper::after {
-  content: "%";
-  position: absolute;
-  right: 85px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none; /* Prevent interaction with the degree symbol */
-  padding-right: 10px;
-}
-
-.degreeSymbolWrapper.float::after {
-  right: 70px;
-}
-
-.settingsPanel button {
-  margin: 20px;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 50%;
-  font-weight: bold;
-}
-
-.cancelButton {
-  background-color: #f0f0f0;
-  color: black;
-}
-
-.cancelButton:hover {
-  background-color: #cccccc;
-}
-
-.saveButton {
-  background-color: #4ba54e;
-  color: white;
-}
-
-.saveButton:hover {
-  background-color: #307232;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
 }

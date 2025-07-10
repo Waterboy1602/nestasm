@@ -6,27 +6,7 @@ import Home from "./components/Home.tsx";
 import Solution from "./components/Solution.tsx";
 import SVGManipulation from "./components/SVGMani.tsx";
 
-import { Config } from "./interfaces/interfaces";
-
-const defaultConfig: Config = {
-  cde_config: {
-    quadtree_depth: 5,
-    hpg_n_cells: 2000,
-    item_surrogate_config: {
-      pole_coverage_goal: 0.9,
-      max_poles: 10,
-      n_ff_poles: 2,
-      n_ff_piers: 0,
-    },
-  },
-  poly_simpl_tolerance: 0.001,
-  prng_seed: 0,
-  n_samples: 5000,
-  ls_frac: 0.02,
-};
-
 function App() {
-  const [config, setConfig] = useState<Config>(defaultConfig);
   const [svgResult, setSvgResult] = useState<string | null>(null);
   const [showChangeInput, setShowChangeInput] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
@@ -39,7 +19,7 @@ function App() {
 
   return (
     <Router basename="/nestasm">
-      <Header config={config} setConfig={setConfig} onHomeClick={resetState} />
+      <Header onHomeClick={resetState} />
       <main>
         <Routes>
           <Route
@@ -52,7 +32,6 @@ function App() {
                 setLogs={setLogs}
                 showChangeInput={showChangeInput}
                 setShowChangeInput={setShowChangeInput}
-                config={config}
               />
             }
           />
