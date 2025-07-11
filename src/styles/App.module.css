@@ -114,7 +114,7 @@ div.container.solution > img {
   }
 }
 
-.demoCheckboxWrapper {
+.checkboxWrapper {
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -122,18 +122,30 @@ div.container.solution > img {
   margin-bottom: 10px;
 }
 
-.demoCheckbox {
+.checkbox {
   width: 18px;
   height: 18px;
-  accent-color: #007bff; /* modern browsers */
+  margin-right: 27px;
+  accent-color: #007bff;
   cursor: pointer;
 }
 
-.demoLabel {
+.checkboxLabel {
   font-size: 16px;
   color: #333;
   cursor: pointer;
   user-select: none;
+}
+
+.numberInput {
+  width: 40px;
+  height: 18px;
+  accent-color: #007bff;
+}
+
+.numberLabel {
+  font-size: 16px;
+  color: #333;
 }
 
 .logBox {

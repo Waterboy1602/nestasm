@@ -16,20 +16,42 @@ function App() {
   const [svgResult, setSvgResult] = useState<string | null>(null);
   const [showChangeInput, setShowChangeInput] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(
+    new File([""], "swim.json", { type: "application/json" })
+  );
   const [error, setError] = useState<string | null>(null);
   const [useDemoFile, setUseDemoFile] = useState(true);
+  const [showLogsInstant, setShowLogsInstant] = useState(false);
+  const [showPreviewSvg, setShowPreviewSvg] = useState(true);
+  const [timeLimit, setTimeLimit] = useState(60);
   const [changeInputFile, setChangeInputFile] = useState(false);
   const [optimizationAlgo, setOptimizationAlgo] = useState(OptimizationAlgo.SPARROW);
   const [loading, setLoading] = useState(false);
   const [compressingPhase, setCompressingPhase] = useState(false);
+
   const logBoxRef = useRef<HTMLDivElement>(null);
   const fileContent = useRef<string | null>(null);
+
+  const [workerKey, setWorkerKey] = useState(0);
 
   const resetState = () => {
     setSvgResult(null);
     setLogs([]);
     setShowChangeInput(false);
+    setLoading(false);
+    setCompressingPhase(false);
+
+    if (algorithmWorker) {
+      algorithmWorker.terminate();
+      algorithmWorker = null;
+    }
+
+    if (cancelWorker) {
+      cancelWorker.terminate();
+      cancelWorker = null;
+    }
+
+    setWorkerKey((prevKey) => prevKey + 1);
   };
 
   const getMaxEval = useCallback((logs: string[]): string | null => {
@@ -78,6 +100,8 @@ function App() {
       }
 
       if (type === Status.FINISHED) {
+        setSvgResult(result);
+
         setLogs((prevLogs) => {
           const logs = [...prevLogs, `Finished`];
 
@@ -109,7 +133,7 @@ function App() {
         algorithmWorker = null;
       }
     };
-  }, [setLogs, setSvgResult, getMaxEval]);
+  }, [setLogs, setSvgResult, getMaxEval, workerKey]);
 
   useEffect(() => {
     if (logBoxRef.current) {
@@ -130,6 +154,9 @@ function App() {
             optimizationAlgo: optimizationAlgo,
             input: input,
             fileType: fileType,
+            showLogsInstant: showLogsInstant,
+            showPreviewSvg: showPreviewSvg,
+            timeLimit: timeLimit,
           },
         });
 
@@ -156,6 +183,11 @@ function App() {
     event.preventDefault();
     setError(null);
 
+    if (timeLimit < 1) {
+      setError("Please choose a time limit higher than 0 seconds.");
+      return;
+    }
+
     if (useDemoFile) {
       try {
         const response = await fetch(`${import.meta.env.BASE_URL}/assets/swim.json`);
@@ -178,18 +210,31 @@ function App() {
     }
 
     if (file) {
-      const reader = new FileReader();
+      const readFilePromise = new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
 
-      reader.onload = async (e) => {
-        fileContent.current = e.target?.result as string;
-      };
+        reader.onload = (e) => {
+          resolve(e.target?.result as string);
+        };
 
-      reader.onerror = () => {
-        setError("Error reading the file. Please try again.");
-      };
+        reader.onerror = () => {
+          reject("Error reading the file. Please try again.");
+        };
 
-      reader.readAsText(file);
-      setShowChangeInput(true);
+        reader.readAsText(file);
+      });
+
+      try {
+        fileContent.current = await readFilePromise;
+
+        if (changeInputFile) {
+          setShowChangeInput(true);
+        } else {
+          startOptimization(optimizationAlgo, fileContent.current, FileType.JSON);
+        }
+      } catch (error) {
+        setError(error as string);
+      }
     } else {
       setError("Please upload a file.");
     }
@@ -205,11 +250,12 @@ function App() {
   const handleFileChange = (event: FileChangeEvent): void => {
     const uploadedFile: File | null = event.target.files[0];
     if (uploadedFile) {
-      if (uploadedFile.type === "image/svg+xml" || uploadedFile.type === "application/json") {
+      if (uploadedFile.type === "application/json") {
         setFile(uploadedFile);
+        setUseDemoFile(false);
         setError(null);
       } else {
-        setError("Please upload a valid SVG or JSON file.");
+        setError("Please upload a valid JSON file.");
         setFile(null);
       }
     } else {
@@ -221,8 +267,13 @@ function App() {
   const handleUseDemoChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.checked) {
       setUseDemoFile(true);
+      const file = new File([""], "swim.json", { type: "application/json" });
+      setFile(file);
     } else {
       setUseDemoFile(false);
+      if (file && file.name === "swim.json") {
+        setFile(null);
+      }
     }
   };
 
@@ -231,6 +282,49 @@ function App() {
       setChangeInputFile(true);
     } else {
       setChangeInputFile(false);
+    }
+  };
+
+  const handleChangeShowLogsInstant = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.checked) {
+      setShowLogsInstant(true);
+    } else {
+      setShowLogsInstant(false);
+    }
+  };
+
+  const handleChangeShowPreviewSvg = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.checked) {
+      setShowPreviewSvg(true);
+    } else {
+      setShowPreviewSvg(false);
+    }
+  };
+
+  const handleChangeTimeLimit = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = parseInt(event.target.value, 10);
+    if (!isNaN(value)) {
+      if (value < 1) {
+        setTimeLimit(0);
+        return;
+      }
+      setTimeLimit(value);
+    } else {
+      setTimeLimit(0);
+    }
+  };
+
+  const downloadSVG = (): void => {
+    if (svgResult) {
+      const blob = new Blob([svgResult], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = optimizationAlgo + "_nestasm.svg";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   };
 
@@ -284,11 +378,19 @@ function App() {
           </div>
         )}
         {!loading && (
-          <div className={styles.processing}>
-            <button type="submit" className={styles.button} onClick={() => setSvgResult(null)}>
-              Start over
-            </button>
-          </div>
+          <>
+            <div className={styles.processing}>
+              <button type="submit" className={styles.button} onClick={() => downloadSVG()}>
+                Download SVG
+              </button>
+            </div>
+
+            <div className={styles.processing}>
+              <button type="submit" className={styles.button} onClick={() => resetState()}>
+                Start over
+              </button>
+            </div>
+          </>
         )}
         {logs.length > 0 && (
           <div className={styles.logBox} ref={logBoxRef}>
@@ -329,35 +431,97 @@ function App() {
       <div className={styles.home}>
         <div className={styles.forms}>
           <div>
-            <form onSubmit={(event) => handleUpload(event)} className={styles.form}>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                if (loading) {
+                  handleCancel();
+                } else {
+                  handleUpload(event);
+                }
+              }}
+              className={styles.form}
+            >
               <label className={styles.label}>Upload an input file</label>
-              <label className={styles.subLabel}>SVG or JSON</label>
+              <label className={styles.subLabel}>JSON</label>
               <input
                 type="file"
-                accept="image/svg+xml, application/json"
+                accept="application/json"
                 onChange={handleFileChange}
                 className={styles.inputFile}
               />
 
-              <label className={styles.demoCheckboxWrapper}>
+              <span className={styles.checkBoxLabel}>
+                <strong>Currently selected:</strong> {file ? file.name : ""}
+                <br />
+                <small>(To change, select a new file above)</small>
+              </span>
+
+              <label className={styles.checkboxWrapper}>
                 <input
                   type="checkbox"
-                  defaultChecked={useDemoFile}
+                  checked={useDemoFile}
                   onChange={handleUseDemoChange}
-                  className={styles.demoCheckbox}
+                  className={styles.checkbox}
                 />
-                <span className={styles.demoLabel}>Use JSON demo file</span>
+                <span className={styles.checkboxLabel}>Use swim.json (demo file)</span>
               </label>
 
-              <label className={styles.demoCheckboxWrapper}>
+              <label className={styles.checkboxWrapper}>
                 <input
                   type="checkbox"
-                  defaultChecked={changeInputFile}
+                  checked={changeInputFile}
                   onChange={handleChangeInputFile}
-                  className={styles.demoCheckbox}
+                  className={styles.checkbox}
                 />
-                <span className={styles.demoLabel}>Edit input file</span>
+                <span className={styles.checkboxLabel}>Edit input file</span>
               </label>
+
+              {optimizationAlgo === OptimizationAlgo.SPARROW && (
+                <>
+                  <label className={styles.checkboxWrapper}>
+                    <input
+                      type="checkbox"
+                      checked={showLogsInstant}
+                      onChange={handleChangeShowLogsInstant}
+                      className={styles.checkbox}
+                    />
+                    <span className={styles.checkboxLabel}>
+                      Show logs instantly
+                      <br />
+                      <span style={{ fontSize: "0.8em", color: "#888" }}>
+                        Causes some speed loss
+                      </span>
+                    </span>
+                  </label>
+
+                  <label className={styles.checkboxWrapper}>
+                    <input
+                      type="checkbox"
+                      checked={showPreviewSvg}
+                      onChange={handleChangeShowPreviewSvg}
+                      className={styles.checkbox}
+                    />
+                    <span className={styles.checkboxLabel}>
+                      Show preview SVG
+                      <br />
+                      <span style={{ fontSize: "0.8em", color: "#888" }}>
+                        Causes some speed loss
+                      </span>
+                    </span>
+                  </label>
+
+                  <label className={styles.checkboxWrapper}>
+                    <input
+                      type="number"
+                      value={timeLimit}
+                      onChange={handleChangeTimeLimit}
+                      className={styles.numberInput}
+                    />
+                    <span className={styles.numberLabel}>Time limit [sec.]</span>
+                  </label>
+                </>
+              )}
 
               {!changeInputFile && (
                 <>

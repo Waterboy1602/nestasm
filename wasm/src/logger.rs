@@ -27,10 +27,7 @@ extern "C" {
 }
 
 #[wasm_bindgen]
-pub fn init_logger(level_filter_u8: u8) -> Result<(), JsValue> {
-    // Set up the console error panic hook for better error reporting in the browser
-    console_error_panic_hook::set_once();
-
+pub fn init_logger(level_filter_u8: u8, show_logs_instant: bool) -> Result<(), JsValue> {
     let level_filter = match level_filter_u8 {
         0 => LevelFilter::Off,
         1 => LevelFilter::Error,
@@ -83,13 +80,13 @@ pub fn init_logger(level_filter_u8: u8) -> Result<(), JsValue> {
             )
             .unwrap();
 
-            // Write logs to buffer
-            LOG_BUFFER.with(|buffer| {
-                buffer.borrow_mut().push(log_obj.into());
-            });
-
-            // Post the log message to the JavaScript side
-            // post_message_object_to_js(&log_obj.into());
+            if show_logs_instant {
+                post_message_object_to_js(&log_obj.into());
+            } else {
+                LOG_BUFFER.with(|buffer| {
+                    buffer.borrow_mut().push(log_obj.into());
+                });
+            }
         }))
         .apply()
         .map_err(|e| JsValue::from_str(&format!("Failed to apply logger: {}", e)))?;

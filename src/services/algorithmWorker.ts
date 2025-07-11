@@ -6,7 +6,8 @@ let wasmInitialized = false;
 const numThreads = navigator.hardwareConcurrency || 3;
 
 self.onmessage = async (event) => {
-  // !ALWAYS FIRST INIT WASM
+  const { type, payload } = event.data;
+
   if (!wasmInitialized) {
     try {
       const wasmInstance = await initWasm();
@@ -20,7 +21,7 @@ self.onmessage = async (event) => {
         // 3 => Info,
         // 4 => Debug,
         // 5 => Trace,
-        await wasm.init_logger(5);
+        await wasm.init_logger(5, payload.showLogsInstant);
         self.postMessage({
           type: Status.PROCESSING,
           message: `Wasm logger successfully initialized`,
@@ -65,8 +66,6 @@ self.onmessage = async (event) => {
     }
   }
 
-  const { type, payload } = event.data;
-
   if (type === Status.START) {
     self.postMessage({ type: Status.PROCESSING, message: `Wasm computation started` });
     const input = payload.input;
@@ -78,7 +77,8 @@ self.onmessage = async (event) => {
         if (payload.optimizationAlgo === OptimizationAlgo.LBF) {
           wasm.run_lbf(input);
         } else if (payload.optimizationAlgo === OptimizationAlgo.SPARROW) {
-          wasm.run_sparrow(input);
+          const timeLimitBigint: bigint = BigInt(payload.timeLimit);
+          wasm.run_sparrow(input, payload.showPreviewSvg, timeLimitBigint);
         }
       }
     } catch (e) {

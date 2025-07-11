@@ -13,6 +13,7 @@ use rand::prelude::SmallRng;
 use serde_wasm_bindgen::from_value;
 use sparrow::config::*;
 use sparrow::optimizer::optimize;
+use sparrow::util::listener::DummySolListener;
 use std::time::Duration;
 use wasm_bindgen::prelude::*;
 
@@ -23,7 +24,7 @@ extern "C" {
 }
 
 #[wasm_bindgen]
-pub fn run_sparrow(json_input: JsValue) -> Result<(), JsValue> {
+pub fn run_sparrow(json_input: JsValue, show_preview_svg: bool, time_limit: u64) -> Result<(), JsValue> {
     log!(Level::Info, "Started LBF optimization");
 
     let json_str: String = match from_value(json_input) {
@@ -36,8 +37,8 @@ pub fn run_sparrow(json_input: JsValue) -> Result<(), JsValue> {
     };
 
     let (explore_dur, compress_dur) = (
-        Duration::from_secs(60).mul_f32(EXPLORE_TIME_RATIO),
-        Duration::from_secs(60).mul_f32(COMPRESS_TIME_RATIO),
+        Duration::from_secs(time_limit).mul_f32(EXPLORE_TIME_RATIO),
+        Duration::from_secs(time_limit).mul_f32(COMPRESS_TIME_RATIO),
     );
 
     info!(
@@ -73,14 +74,26 @@ pub fn run_sparrow(json_input: JsValue) -> Result<(), JsValue> {
 
     let mut wasm_terminator = WasmTerminator::new();
 
-    let sol = optimize(
-        instance.clone(),
-        rng,
-        &mut WasmSvgExporter::new(),
-        &mut wasm_terminator,
-        explore_dur,
-        compress_dur,
-    );
+    let sol;
+    if show_preview_svg {
+        sol = optimize(
+            instance.clone(),
+            rng,
+            &mut WasmSvgExporter::new(),
+            &mut wasm_terminator,
+            explore_dur,
+            compress_dur,
+        );
+    } else {
+        sol = optimize(
+            instance.clone(),
+            rng,
+            &mut DummySolListener,
+            &mut wasm_terminator,
+            explore_dur,
+            compress_dur,
+        );
+    }
 
     logger::flush_logs();
 
