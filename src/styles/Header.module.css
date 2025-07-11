@@ -17,6 +17,8 @@
 
   min-width: 200px;
   height: 100%;
+
+  cursor: pointer;
 }
 
 .container > h1 {
@@ -31,7 +33,6 @@ a {
 }
 
 .icon {
-  cursor: pointer;
   color: #333;
 }
 

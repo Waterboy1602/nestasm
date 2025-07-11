@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 import styles from "../styles/Header.module.css";
 
@@ -11,18 +10,17 @@ interface HeaderProps {
 function Header({ onHomeClick }: HeaderProps) {
   return (
     <header className={styles.header}>
-      <Link
-        to="/"
+      <div
         className={styles.container}
         style={{ justifyContent: "flex-start" }}
         onClick={onHomeClick}
       >
         <FontAwesomeIcon icon={faHome} size="2x" className={styles.icon} />
-      </Link>
+      </div>
 
-      <Link to="/" className={styles.container} onClick={onHomeClick}>
+      <div className={styles.container} onClick={onHomeClick}>
         <h1>NESTASM</h1>
-      </Link>
+      </div>
     </header>
   );
 }
