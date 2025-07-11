@@ -1,8 +1,10 @@
 import { useState, Dispatch, SetStateAction, useEffect, useRef, useCallback } from "react";
-// import { useNavigate } from "react-router-dom";
 import styles from "../styles/Home.module.css";
 import { FileType, Status, OptimizationAlgo } from "../Enums";
 import ChangeInputFile from "./InputOverview";
+
+let cancelWorker: Worker | null = null;
+let algorithmWorker: Worker | null = null;
 
 interface HomeProps {
   svgResult: string | null;
@@ -12,20 +14,10 @@ interface HomeProps {
   showChangeInput: boolean;
   setShowChangeInput: Dispatch<SetStateAction<boolean>>;
 }
-// interface ParsedJson {
-//   [key: string]: unknown;
-// }
-//
-// interface NavigateState {
-//   input: ParsedJson;
-// }
 
 interface FileChangeEvent extends React.ChangeEvent<HTMLInputElement> {
   target: HTMLInputElement & { files: FileList };
 }
-
-let algorithmWorker: Worker | null = null;
-let cancelWorker: Worker | null = null;
 
 function Home({
   svgResult,
@@ -84,8 +76,13 @@ function Home({
         return;
       }
 
-      if (type === Status.FINISHED) {
+      if (type === Status.INTERMEDIATE) {
         setSvgResult(result);
+
+        return;
+      }
+
+      if (type === Status.FINISHED) {
         setLogs((prevLogs) => {
           const logs = [...prevLogs, `Finished`];
 
@@ -142,11 +139,6 @@ function Home({
         });
 
         setLoading(true);
-      } else {
-        if (cancelWorker) {
-          cancelWorker.postMessage({ type: Status.CANCEL, payload: {} });
-          setCompressingPhase(true);
-        }
       }
     }
   };
@@ -195,24 +187,6 @@ function Home({
 
       reader.onload = async (e) => {
         fileContent.current = e.target?.result as string;
-
-        // try {
-        //   if (file.type === "image/svg+xml") {
-        //     startOptimization(optimizationAlgo, fileContent.current, FileType.SVG);
-        //   }
-
-        //   if (file.type === "application/json") {
-        //     // const parsedInput: ParsedJson = JSON.parse(fileContent);
-
-        //     // navigate("/input", {
-        //     //   state: { input: parsedInput } as NavigateState,
-        //     // });
-
-        //     startOptimization(optimizationAlgo, fileContent.current, FileType.JSON);
-        //   }
-        // } catch (wasmError) {
-        //   setError("WASM processing error: " + wasmError);
-        // }
       };
 
       reader.onerror = () => {
@@ -223,6 +197,13 @@ function Home({
       setShowChangeInput(true);
     } else {
       setError("Please upload a file.");
+    }
+  };
+
+  const handleCancel = (): void => {
+    if (cancelWorker) {
+      cancelWorker.postMessage({ type: Status.CANCEL, payload: {} });
+      setCompressingPhase(true);
     }
   };
 
@@ -285,10 +266,36 @@ function Home({
   if (svgResult) {
     return (
       <>
-        <div
-          dangerouslySetInnerHTML={{ __html: svgResult }}
-          style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}
-        />
+        <div dangerouslySetInnerHTML={{ __html: svgResult }} className={styles.svgBox} />
+
+        {loading && (
+          <div className={styles.processing}>
+            <button
+              type="submit"
+              className={styles.button}
+              onClick={() => handleCancel()}
+              style={{ marginTop: "0" }}
+            >
+              {!compressingPhase ? (
+                <>
+                  <span className={styles.loader} /> Cancel exploring
+                </>
+              ) : (
+                <>
+                  <span className={styles.loader} /> Cancel compressing
+                </>
+              )}
+            </button>
+          </div>
+        )}
+
+        {!loading && (
+          <div className={styles.processing}>
+            <button type="submit" className={styles.button} onClick={() => setSvgResult(null)}>
+              Start over
+            </button>
+          </div>
+        )}
 
         {logs.length > 0 && (
           <div className={styles.logBox} ref={logBoxRef}>

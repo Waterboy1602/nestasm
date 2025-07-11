@@ -11,6 +11,7 @@ export enum Status {
   ERROR = "error",
   CANCEL = "cancel",
   INIT_SHARED_MEMORY = "init_shared_memory",
+  INTERMEDIATE = "intermediate",
 }
 
 export enum OptimizationAlgo {

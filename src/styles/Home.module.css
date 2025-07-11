@@ -172,3 +172,24 @@ div.container.solution > img {
   background: #fff;
   color: #333;
 }
+
+div.svgBox {
+  width: 50%;
+  margin: 0 auto;
+}
+
+div.processing {
+  width: 20%;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  div.svgBox {
+    width: 90%;
+  }
+
+  div.processing {
+    width: 50%;
+    margin: 0 auto;
+  }
+}
