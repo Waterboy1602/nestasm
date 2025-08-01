@@ -12,6 +12,7 @@ use rand::SeedableRng;
 use rand::prelude::SmallRng;
 use serde_wasm_bindgen::from_value;
 use sparrow::config::*;
+use sparrow::consts::{DEFAULT_COMPRESS_TIME_RATIO, DEFAULT_EXPLORE_TIME_RATIO, DRAW_OPTIONS};
 use sparrow::optimizer::optimize;
 use sparrow::util::listener::DummySolListener;
 use std::time::Duration;
@@ -24,8 +25,14 @@ extern "C" {
 }
 
 #[wasm_bindgen]
-pub fn run_sparrow(json_input: JsValue, show_preview_svg: bool, time_limit: u64) -> Result<(), JsValue> {
+pub fn run_sparrow(
+    json_input: JsValue,
+    show_preview_svg: bool,
+    time_limit: u64,
+) -> Result<(), JsValue> {
     log!(Level::Info, "Started LBF optimization");
+
+    let config = DEFAULT_SPARROW_CONFIG;
 
     let json_str: String = match from_value(json_input) {
         Ok(val) => val,
@@ -37,8 +44,8 @@ pub fn run_sparrow(json_input: JsValue, show_preview_svg: bool, time_limit: u64)
     };
 
     let (explore_dur, compress_dur) = (
-        Duration::from_secs(time_limit).mul_f32(EXPLORE_TIME_RATIO),
-        Duration::from_secs(time_limit).mul_f32(COMPRESS_TIME_RATIO),
+        Duration::from_secs(time_limit).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
+        Duration::from_secs(time_limit).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
     );
 
     info!(
@@ -47,7 +54,7 @@ pub fn run_sparrow(json_input: JsValue, show_preview_svg: bool, time_limit: u64)
         compress_dur.as_secs()
     );
 
-    let rng = match RNG_SEED {
+    let rng = match config.rng_seed {
         Some(seed) => {
             info!("[MAIN] using seed: {}", seed);
             SmallRng::seed_from_u64(seed as u64)
@@ -63,7 +70,11 @@ pub fn run_sparrow(json_input: JsValue, show_preview_svg: bool, time_limit: u64)
         .context("not a valid strip packing instance (ExtSPInstance)")
         .unwrap();
 
-    let importer = Importer::new(CDE_CONFIG, SIMPL_TOLERANCE, MIN_ITEM_SEPARATION);
+    let importer = Importer::new(
+        config.cde_config,
+        config.poly_simpl_tolerance,
+        config.min_item_separation,
+    );
     let instance = jagua_rs::probs::spp::io::import(&importer, &ext_sp_instance).unwrap();
 
     info!(
@@ -81,8 +92,8 @@ pub fn run_sparrow(json_input: JsValue, show_preview_svg: bool, time_limit: u64)
             rng,
             &mut WasmSvgExporter::new(),
             &mut wasm_terminator,
-            explore_dur,
-            compress_dur,
+            &config.expl_cfg,
+            &config.cmpr_cfg,
         );
     } else {
         sol = optimize(
@@ -90,8 +101,8 @@ pub fn run_sparrow(json_input: JsValue, show_preview_svg: bool, time_limit: u64)
             rng,
             &mut DummySolListener,
             &mut wasm_terminator,
-            explore_dur,
-            compress_dur,
+            &config.expl_cfg,
+            &config.cmpr_cfg,
         );
     }
 

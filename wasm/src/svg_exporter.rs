@@ -2,7 +2,7 @@ use crate::enums::Status;
 
 use jagua_rs::io::svg::s_layout_to_svg;
 use jagua_rs::probs::spp::entities::{SPInstance, SPSolution};
-use sparrow::config::DRAW_OPTIONS;
+use sparrow::consts::DRAW_OPTIONS;
 use sparrow::util::listener::{ReportType, SolutionListener};
 use wasm_bindgen::prelude::*;
 
