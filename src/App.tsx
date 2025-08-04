@@ -24,6 +24,8 @@ function App() {
   const [showLogsInstant, setShowLogsInstant] = useState(false);
   const [showPreviewSvg, setShowPreviewSvg] = useState(true);
   const [timeLimit, setTimeLimit] = useState(60);
+  const [seed, setSeed] = useState<bigint | undefined>(8780830896941405304n);
+  const [useEarlyTermination, setUseEarlyTermination] = useState(false);
   const [changeInputFile, setChangeInputFile] = useState(false);
   const [optimizationAlgo, setOptimizationAlgo] = useState(OptimizationAlgo.SPARROW);
   const [loading, setLoading] = useState(false);
@@ -156,7 +158,9 @@ function App() {
             fileType: fileType,
             showLogsInstant: showLogsInstant,
             showPreviewSvg: showPreviewSvg,
-            timeLimit: timeLimit,
+            timeLimit: useEarlyTermination ? undefined : timeLimit,
+            seed: seed,
+            useEarlyTermination: useEarlyTermination,
           },
         });
 
@@ -278,27 +282,15 @@ function App() {
   };
 
   const handleChangeInputFile = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.checked) {
-      setChangeInputFile(true);
-    } else {
-      setChangeInputFile(false);
-    }
+    setChangeInputFile(event.target.checked);
   };
 
   const handleChangeShowLogsInstant = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.checked) {
-      setShowLogsInstant(true);
-    } else {
-      setShowLogsInstant(false);
-    }
+    setShowLogsInstant(event.target.checked);
   };
 
   const handleChangeShowPreviewSvg = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.checked) {
-      setShowPreviewSvg(true);
-    } else {
-      setShowPreviewSvg(false);
-    }
+    setShowPreviewSvg(event.target.checked);
   };
 
   const handleChangeTimeLimit = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -312,6 +304,18 @@ function App() {
     } else {
       setTimeLimit(0);
     }
+  };
+
+  const handleChangeSeed = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (!event.target.value) {
+      setSeed(undefined);
+      return;
+    }
+    setSeed(BigInt(event.target.value));
+  };
+
+  const handleChangeUseEarlyTermination = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setUseEarlyTermination(event.target.checked);
   };
 
   const downloadSVG = (): void => {
@@ -393,7 +397,7 @@ function App() {
           </>
         )}
         {logs.length > 0 && (
-          <div className={styles.logBox} ref={logBoxRef}>
+          <div className={styles.logBox} ref={logBoxRef} data-testid="logBox">
             <h4>Logs</h4>
             <ul>
               {logs.map((log, idx) => (
@@ -412,7 +416,7 @@ function App() {
         <Header onHomeClick={resetState} />
         <ChangeInputFile fileContent={fileContent.current} startOptimization={startOptimization} />
         {logs.length > 0 && (
-          <div className={styles.logBox} ref={logBoxRef}>
+          <div className={styles.logBox} ref={logBoxRef} data-testid="logBox">
             <h4>Logs</h4>
             <ul>
               {logs.map((log, idx) => (
@@ -458,34 +462,28 @@ function App() {
               </span>
 
               <label className={styles.checkboxWrapper}>
+                <span className={styles.checkboxLabel}>Use swim.json (demo file)</span>
                 <input
                   type="checkbox"
                   checked={useDemoFile}
                   onChange={handleUseDemoChange}
                   className={styles.checkbox}
                 />
-                <span className={styles.checkboxLabel}>Use swim.json (demo file)</span>
               </label>
 
               <label className={styles.checkboxWrapper}>
+                <span className={styles.checkboxLabel}>Edit input file</span>
                 <input
                   type="checkbox"
                   checked={changeInputFile}
                   onChange={handleChangeInputFile}
                   className={styles.checkbox}
                 />
-                <span className={styles.checkboxLabel}>Edit input file</span>
               </label>
 
               {optimizationAlgo === OptimizationAlgo.SPARROW && (
                 <>
                   <label className={styles.checkboxWrapper}>
-                    <input
-                      type="checkbox"
-                      checked={showLogsInstant}
-                      onChange={handleChangeShowLogsInstant}
-                      className={styles.checkbox}
-                    />
                     <span className={styles.checkboxLabel}>
                       Show logs instantly
                       <br />
@@ -493,15 +491,16 @@ function App() {
                         Causes some speed loss
                       </span>
                     </span>
+                    <input
+                      type="checkbox"
+                      checked={showLogsInstant}
+                      onChange={handleChangeShowLogsInstant}
+                      className={styles.checkbox}
+                      data-testid="showLogsInstant"
+                    />
                   </label>
 
                   <label className={styles.checkboxWrapper}>
-                    <input
-                      type="checkbox"
-                      checked={showPreviewSvg}
-                      onChange={handleChangeShowPreviewSvg}
-                      className={styles.checkbox}
-                    />
                     <span className={styles.checkboxLabel}>
                       Show preview SVG
                       <br />
@@ -509,16 +508,49 @@ function App() {
                         Causes some speed loss
                       </span>
                     </span>
+                    <input
+                      type="checkbox"
+                      checked={showPreviewSvg}
+                      onChange={handleChangeShowPreviewSvg}
+                      className={styles.checkbox}
+                      data-testid="showPreviewSvg"
+                    />
                   </label>
 
                   <label className={styles.checkboxWrapper}>
+                    <span className={styles.numberLabel}>Early terminate optimization process</span>
+                    <input
+                      type="checkbox"
+                      checked={useEarlyTermination}
+                      onChange={handleChangeUseEarlyTermination}
+                      className={styles.checkbox}
+                      data-testid="earlyTerminationInput"
+                    />
+                  </label>
+
+                  {!useEarlyTermination && (
+                    <label className={styles.checkboxWrapper}>
+                      <span className={styles.numberLabel}>Time limit [sec.]</span>
+
+                      <input
+                        type="number"
+                        value={timeLimit}
+                        onChange={handleChangeTimeLimit}
+                        className={styles.numberInput}
+                        data-testid="timeLimitInput"
+                      />
+                    </label>
+                  )}
+
+                  <label className={styles.checkboxWrapper}>
+                    <span className={styles.numberLabel}>Random seed</span>
                     <input
                       type="number"
-                      value={timeLimit}
-                      onChange={handleChangeTimeLimit}
-                      className={styles.numberInput}
+                      value={seed?.toString() || ""}
+                      onChange={handleChangeSeed}
+                      className={`${styles.numberInput} ${styles.seedInput}`}
+                      data-testid="seedInput"
                     />
-                    <span className={styles.numberLabel}>Time limit [sec.]</span>
                   </label>
                 </>
               )}
@@ -553,7 +585,7 @@ function App() {
         </div>
 
         {logs.length > 0 && (
-          <div className={styles.logBox} ref={logBoxRef}>
+          <div className={styles.logBox} ref={logBoxRef} data-testid="logBox">
             <h4>Logs</h4>
             <ul>
               {logs.map((log, idx) => (

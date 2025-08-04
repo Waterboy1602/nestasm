@@ -117,15 +117,16 @@ div.container.solution > img {
 .checkboxWrapper {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.5em;
   margin-top: 10px;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .checkbox {
   width: 18px;
   height: 18px;
-  margin-right: 27px;
   accent-color: #007bff;
   cursor: pointer;
 }
@@ -135,12 +136,18 @@ div.container.solution > img {
   color: #333;
   cursor: pointer;
   user-select: none;
+  flex: 1;
+  text-align: left;
 }
 
 .numberInput {
   width: 40px;
   height: 18px;
   accent-color: #007bff;
+}
+
+.seedInput {
+  width: auto;
 }
 
 .numberLabel {

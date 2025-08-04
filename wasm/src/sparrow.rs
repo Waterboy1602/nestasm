@@ -12,7 +12,10 @@ use rand::SeedableRng;
 use rand::prelude::SmallRng;
 use serde_wasm_bindgen::from_value;
 use sparrow::config::*;
-use sparrow::consts::{DEFAULT_COMPRESS_TIME_RATIO, DEFAULT_EXPLORE_TIME_RATIO, DRAW_OPTIONS};
+use sparrow::consts::{
+    DEFAULT_COMPRESS_TIME_RATIO, DEFAULT_EXPLORE_TIME_RATIO, DEFAULT_FAIL_DECAY_RATIO_CMPR,
+    DEFAULT_MAX_CONSEQ_FAILS_EXPL, DRAW_OPTIONS,
+};
 use sparrow::optimizer::optimize;
 use sparrow::util::listener::DummySolListener;
 use std::time::Duration;
@@ -28,11 +31,13 @@ extern "C" {
 pub fn run_sparrow(
     json_input: JsValue,
     show_preview_svg: bool,
-    time_limit: u64,
+    time_limit: Option<u64>,
+    seed: Option<u64>,
+    use_early_termination: bool,
 ) -> Result<(), JsValue> {
     log!(Level::Info, "Started LBF optimization");
 
-    let config = DEFAULT_SPARROW_CONFIG;
+    let mut config = DEFAULT_SPARROW_CONFIG;
 
     let json_str: String = match from_value(json_input) {
         Ok(val) => val,
@@ -43,10 +48,19 @@ pub fn run_sparrow(
         }
     };
 
-    let (explore_dur, compress_dur) = (
-        Duration::from_secs(time_limit).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
-        Duration::from_secs(time_limit).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
-    );
+    let (explore_dur, compress_dur) = match (time_limit) {
+        Some(time_limit) => (
+            Duration::from_secs(time_limit).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
+            Duration::from_secs(time_limit).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
+        ),
+        None => {
+            warn!("[MAIN] no time limit specified");
+            (
+                Duration::from_secs(600).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
+                Duration::from_secs(600).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
+            )
+        }
+    };
 
     info!(
         "[MAIN] Configured to explore for {}s and compress for {}s",
@@ -54,7 +68,14 @@ pub fn run_sparrow(
         compress_dur.as_secs()
     );
 
-    let rng = match config.rng_seed {
+    if use_early_termination {
+        config.expl_cfg.max_conseq_failed_attempts = Some(DEFAULT_MAX_CONSEQ_FAILS_EXPL);
+        config.cmpr_cfg.shrink_decay =
+            ShrinkDecayStrategy::FailureBased(DEFAULT_FAIL_DECAY_RATIO_CMPR);
+        warn!("[MAIN] early termination enabled!");
+    }
+
+    let rng = match seed {
         Some(seed) => {
             info!("[MAIN] using seed: {}", seed);
             SmallRng::seed_from_u64(seed as u64)

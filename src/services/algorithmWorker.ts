@@ -77,8 +77,17 @@ self.onmessage = async (event) => {
         if (payload.optimizationAlgo === OptimizationAlgo.LBF) {
           wasm.run_lbf(input);
         } else if (payload.optimizationAlgo === OptimizationAlgo.SPARROW) {
-          const timeLimitBigint: bigint = BigInt(payload.timeLimit);
-          wasm.run_sparrow(input, payload.showPreviewSvg, timeLimitBigint);
+          let timeLimitBigint: bigint | undefined;
+          if (payload.timeLimit) {
+            timeLimitBigint = BigInt(payload.timeLimit);
+          }
+          wasm.run_sparrow(
+            input,
+            payload.showPreviewSvg,
+            timeLimitBigint,
+            payload.seed,
+            payload.useEarlyTermination
+          );
         }
       }
     } catch (e) {
