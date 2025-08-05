@@ -48,7 +48,7 @@ pub fn run_sparrow(
         }
     };
 
-    let (explore_dur, compress_dur) = match (time_limit) {
+    let (explore_dur, compress_dur) = match time_limit {
         Some(time_limit) => (
             Duration::from_secs(time_limit).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
             Duration::from_secs(time_limit).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
@@ -67,6 +67,9 @@ pub fn run_sparrow(
         explore_dur.as_secs(),
         compress_dur.as_secs()
     );
+
+    config.expl_cfg.time_limit = explore_dur;
+    config.cmpr_cfg.time_limit = compress_dur;
 
     if use_early_termination {
         config.expl_cfg.max_conseq_failed_attempts = Some(DEFAULT_MAX_CONSEQ_FAILS_EXPL);
