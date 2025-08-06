@@ -1,6 +1,7 @@
 name: Deploy Jagua-rs webpage with React and WASM to GitHub Pages
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
