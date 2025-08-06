@@ -2,7 +2,7 @@
 [target.wasm32-unknown-unknown]
 rustflags = [
     "--cfg", "getrandom_backend=\"wasm_js\"", 
-    "-C", "target-feature=+atomics,+bulk-memory,+mutable-globals"]
+    "-C", "target-feature=+atomics,+bulk-memory,+mutable-globals,+simd128"]
 
 [unstable]
 build-std = ["panic_abort", "std"]
