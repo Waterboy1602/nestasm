@@ -24,7 +24,7 @@ function App() {
   const [showLogsInstant, setShowLogsInstant] = useState(false);
   const [showPreviewSvg, setShowPreviewSvg] = useState(true);
   const [timeLimit, setTimeLimit] = useState(60);
-  const [seed, setSeed] = useState<bigint | undefined>(8780830896941405304n);
+  const [seed, setSeed] = useState<bigint | undefined>();
   const [useEarlyTermination, setUseEarlyTermination] = useState(false);
   const [changeInputFile, setChangeInputFile] = useState(false);
   const [optimizationAlgo, setOptimizationAlgo] = useState(OptimizationAlgo.SPARROW);
