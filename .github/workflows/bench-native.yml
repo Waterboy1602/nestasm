@@ -1,0 +1,35 @@
+name: Native bench
+
+on:
+  push:
+    branches: [main, playwright]
+  pull_request:
+    branches: [main, playwright]
+
+jobs:
+  run-benchmark:
+    name: bench swim.json - seed 8780830896941405304 - Early termination
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@nightly
+      - name: Run bench
+        env:
+          RUSTFLAGS: "-C target-cpu=native -Awarnings"
+        run: |
+          export RUSTFLAGS=$RUSTFLAGS
+          output=$(cargo run --profile release --features=only_final_svg,simd --bin bench-wasm -- ./data/input/swim.json | tee /dev/stderr)
+          echo "$output" > "output/bench_native.log"
+          {
+            echo "## Benchmark Output for swim.json"
+            echo '```'
+            echo "$output"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bench_native_log
+          path: output/bench_native.log
+          retention-days: 14
