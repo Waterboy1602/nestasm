@@ -134,9 +134,10 @@ const startOptimization = async (page, configNumber) => {
 
     const timestamp = new Date().toISOString();
     const commitHash = process.env.GIT_COMMIT_HASH || "unknown";
+    const cpuModel = process.env.CPU_MODEL || "unknown";
     const logEntry = `${timestamp};${configNumber};${test.info().repeatEachIndex + 1};${
       test.info().project.name
-    };${commitHash};${maxEvalsPerSecond}\n`;
+    };${cpuModel};${commitHash};${maxEvalsPerSecond}\n`;
 
     fs.appendFileSync(resultsFilePath, logEntry);
 

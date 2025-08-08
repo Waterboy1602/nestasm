@@ -97,6 +97,8 @@ const startOptimization = async (page, configNumber) => {
   await expect(startButton).toBeVisible();
   await startButton.click();
 
+  const startTime = Date.now();
+
   const logBox = await page.getByTestId("logBox");
   await expect(logBox).toBeVisible();
   await expect(logBox).toContainText("Wasm logger successfully initialized");
@@ -111,7 +113,9 @@ const startOptimization = async (page, configNumber) => {
   }
   await expect(logBox).toContainText("Wasm computation started");
 
-  await expect(logBox).toContainText("Finished", { timeout: 80000 });
+  await expect(logBox).toContainText("Finished", { timeout: 900000 });
+  const elapsedTime = Date.now() - startTime;
+
   await expect(logBox).toContainText("Max evals");
   const logBoxText = await page.getByTestId("logBox").textContent();
 
@@ -120,23 +124,14 @@ const startOptimization = async (page, configNumber) => {
     return;
   }
 
-  const regex = /Max evals\/s:\s*([0-9.]+)/;
-  const match = logBoxText.match(regex);
+  const timestamp = new Date().toISOString();
+  const commitHash = process.env.GIT_COMMIT_HASH || "unknown";
+  const cpuModel = process.env.CPU_MODEL || "unknown";
+  const logEntry = `${timestamp};${configNumber};${test.info().repeatEachIndex + 1};${
+    test.info().project.name
+  };${cpuModel};${commitHash};${elapsedTime}\n`;
 
-  if (match && match[1]) {
-    const maxEvalsPerSecond = parseFloat(match[1]);
-    console.log(`Max evals/s: ${maxEvalsPerSecond}`);
+  fs.appendFileSync(resultsFilePath, logEntry);
 
-    const timestamp = new Date().toISOString();
-    const commitHash = process.env.GIT_COMMIT_HASH || "unknown";
-    const logEntry = `${timestamp};${configNumber};${test.info().repeatEachIndex + 1};${
-      test.info().project.name
-    };${commitHash};${maxEvalsPerSecond}\n`;
-
-    fs.appendFileSync(resultsFilePath, logEntry);
-
-    expect(maxEvalsPerSecond).toBeGreaterThan(0);
-  } else {
-    test.fail(true, 'Could not find "Max evals/s" value in the logs.');
-  }
+  expect(elapsedTime).toBeGreaterThan(0);
 };

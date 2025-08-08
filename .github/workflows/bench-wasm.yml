@@ -1,15 +1,18 @@
 name: Playwright bench
 
 on:
-  push:
-    branches: ["**"]
-  pull_request:
-    branches: ["**"]
+  workflow_dispatch:
+    inputs:
+      cpu_tag:
+        description: "CPU type for job"
+        required: true
+        type: choice
+        options:
+          - ubuntu-latest
 
 jobs:
   test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.cpu_tag }}
     steps:
       - uses: actions/checkout@v4
 
@@ -26,9 +29,8 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test speed-remote
 
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+      - name: Commit and push benchmark results
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+          commit_message: "chore: update benchmark results"
+          file_pattern: "results/benchmark_results_remote.csv"

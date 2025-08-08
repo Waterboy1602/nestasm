@@ -1,15 +1,19 @@
 name: Native bench
 
 on:
-  push:
-    branches: ["**"]
-  pull_request:
-    branches: ["**"]
+  workflow_dispatch:
+    inputs:
+      cpu_tag:
+        description: "CPU type for job"
+        required: true
+        type: choice
+        options:
+          - ubuntu-latest
 
 jobs:
   run-benchmark:
     name: bench swim.json - seed 8780830896941405304 - Early termination
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.cpu_tag }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -38,9 +42,8 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Commit and push benchmark results
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          name: bench_native_log
-          path: output/bench_native.log
-          retention-days: 14
+          commit_message: "chore: update benchmark results"
+          file_pattern: "results/benchmark_results_native.csv"
