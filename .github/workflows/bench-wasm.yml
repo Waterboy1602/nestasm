@@ -2,9 +2,9 @@ name: Playwright bench
 
 on:
   push:
-    branches: [main, playwright]
+    branches: [**]
   pull_request:
-    branches: [main, playwright]
+    branches: [**]
 
 jobs:
   test:
