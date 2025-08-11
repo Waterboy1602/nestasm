@@ -1,0 +1,2 @@
+Timestamp,CPU,CommitHash,Seed,EarlyTermination,RunningTime
+2025-08-11T23:57:28.165487919Z,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,71e8282319ca2caf3d96b6efefd8a207e8d01305,8780830896941405304,true,497675
