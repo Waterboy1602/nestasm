@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import * as fs from "fs";
 import * as path from "path";
 
-const resultsFilePath = path.join("./", "results", "benchmark_results_remote.csv");
+const resultsFilePath = path.join("./", "results", "benchmark_results_wasm.csv");
 const url = "https://waterboy1602.github.io/nestasm/";
 /**
  * This test measures the speed of the Wasm optimization process.

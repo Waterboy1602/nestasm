@@ -45,5 +45,7 @@ jobs:
       - name: Commit and push benchmark results
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
+          create_branch: true
+          branch: "test-results"
           commit_message: "chore: update benchmark results"
           file_pattern: "results/benchmark_results_native.csv"

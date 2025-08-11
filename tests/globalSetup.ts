@@ -25,7 +25,7 @@ function getCpuModel(): string {
 
 function createResultsFile() {
   const resultsLocalFilePath = path.join("./", "results", "benchmark_results_local.csv");
-  const resultsRemoteFilePath = path.join("./", "results", "benchmark_results_remote.csv");
+  const resultsRemoteFilePath = path.join("./", "results", "benchmark_results_wasm.csv");
 
   fs.mkdirSync(path.dirname(resultsLocalFilePath), { recursive: true });
   fs.mkdirSync(path.dirname(resultsRemoteFilePath), { recursive: true });
