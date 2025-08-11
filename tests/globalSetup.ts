@@ -31,12 +31,12 @@ function createResultsFile() {
   fs.mkdirSync(path.dirname(resultsRemoteFilePath), { recursive: true });
 
   if (!fs.existsSync(resultsLocalFilePath)) {
-    const logEntryHeader = `Timestamp;BenchConfiguration;Run;Browser;CPU;CommitHash;Max evals/s\n`;
+    const logEntryHeader = `Timestamp,BenchConfiguration,Run,Browser,CPU,CommitHash,Max evals/s\n`;
     fs.appendFileSync(resultsLocalFilePath, logEntryHeader);
   }
 
   if (!fs.existsSync(resultsRemoteFilePath)) {
-    const logEntryHeader = `Timestamp;BenchConfiguration;Run;Browser;CPU;CommitHash;RunningTime\n`;
+    const logEntryHeader = `Timestamp,BenchConfiguration,Run,Browser,CPU,CommitHash,RunningTime\n`;
     fs.appendFileSync(resultsRemoteFilePath, logEntryHeader);
   }
 }
