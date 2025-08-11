@@ -9,6 +9,7 @@ on:
         type: choice
         options:
           - ubuntu-latest
+          - E5645
 
 jobs:
   run-benchmark:
