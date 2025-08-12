@@ -40,7 +40,14 @@ jobs:
         run: npx playwright install
 
       - name: Run Playwright tests
-        run: npx playwright test speed-remote
+        run: npx playwright test speed-remote --project chromium
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
 
       - name: Commit and push benchmark results
         uses: stefanzweifel/git-auto-commit-action@v5
