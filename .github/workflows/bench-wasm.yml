@@ -10,12 +10,24 @@ on:
         options:
           - ubuntu-latest
           - E5645
+      git_tag:
+        description: "Code version"
+        required: true
+        type: choice
+        options:
+          - V1
+          - V2
+          - V3
+          - V4
 
 jobs:
-  test:
+  run-wasm-benchmark:
     runs-on: ${{ inputs.cpu_tag }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ref: ${{ inputs.git_tag }}
 
       - uses: actions/setup-node@v4
         with:
@@ -25,7 +37,7 @@ jobs:
         run: npm ci
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install
 
       - name: Run Playwright tests
         run: npx playwright test speed-remote
