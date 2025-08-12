@@ -3,6 +3,16 @@ name: Playwright bench
 on:
   workflow_dispatch:
     inputs:
+      browser:
+        description: "Code version"
+        required: true
+        type: choice
+        options:
+          - all
+          - chromium
+          - firefox
+          - webkit
+          - all
       cpu_tag:
         description: "CPU type for job"
         required: true
@@ -40,7 +50,12 @@ jobs:
         run: npx playwright install
 
       - name: Run Playwright tests
-        run: npx playwright test speed-remote --project chromium
+        run: |
+          if [ "${{ inputs.browser }}" == "all" ]; then
+            npx playwright test speed-remote
+          else
+            npx playwright test speed-remote --project ${{ inputs.browser }}
+          fi
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
