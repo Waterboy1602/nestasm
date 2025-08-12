@@ -64,8 +64,10 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      - name: Commit and push benchmark results
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          commit_message: "chore: update benchmark results"
-          file_pattern: "results/benchmark_results_wasm.csv"
+          name: benchmark-results-wasm
+          path: results/benchmark_results_wasm.csv
+          retention-days: 30
