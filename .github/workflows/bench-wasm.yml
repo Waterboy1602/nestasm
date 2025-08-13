@@ -101,7 +101,7 @@ jobs:
           retention-days: 30
 
       - name: Temp save new benchmark file
-        run: mkdir -p ../tmp_results && cp -f results/benchmark_results_native.csv ../tmp_results/ || true
+        run: mkdir -p ../tmp_results && cp -f results/benchmark_results_wasm.csv ../tmp_results/ || true
 
       - name: Checkout benchmarks branch
         uses: actions/checkout@v4
@@ -109,7 +109,7 @@ jobs:
           ref: benchmarks
 
       - name: Replace old benchmark results with new benchmark results
-        run: mkdir -p results && cp ../tmp_results/benchmark_results_native.csv results/ || true
+        run: mkdir -p results && cp ../tmp_results/benchmark_results_wasm.csv results/ || true
 
       - name: Commit and push benchmark results
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -117,4 +117,4 @@ jobs:
           create_branch: true
           branch: "benchmarks"
           commit_message: "chore: update benchmark results"
-          file_pattern: "results/benchmark_results_*.csv"
+          file_pattern: "results/benchmark_results_wasm.csv"
