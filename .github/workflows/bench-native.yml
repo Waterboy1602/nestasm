@@ -29,12 +29,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: benchmarks
+          fetch-depth: 0
 
       - name: Save existing benchmark file
         run: mkdir -p tmp_results && cp results/benchmark_results_native.csv tmp_results/ || true
 
       - name: Checkout code from tag
-        run: git checkout ${{ inputs.git_tag }} -- .
+        run: |
+          git fetch origin ${{ inputs.git_tag }}
+          git checkout ${{ inputs.git_tag }} -- .
 
       - name: Restore old benchmark results
         run: mkdir -p results && cp tmp_results/benchmark_results_native.csv results/ || true
