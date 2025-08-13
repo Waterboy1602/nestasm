@@ -8,17 +8,9 @@ on:
         required: true
         type: choice
         options:
-          - ubuntu-latest
           - E5645
-      git_tag:
-        description: "Code version"
-        required: true
-        type: choice
-        options:
-          - V1
-          - V2
-          - V3
-          - V4
+          - 7950X
+          - ubuntu-latest
 
 jobs:
   run-native-benchmark:
@@ -33,11 +25,10 @@ jobs:
       - name: Save existing benchmark file
         run: mkdir -p ../tmp_results && cp results/benchmark_results_native.csv ../tmp_results/ || true
 
-      - name: Checkout benchmarks branch
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          ref: ${{ inputs.git_tag }}
+      - name: Checkout code from tag
+        run: |
+          git fetch origin ${{ github.ref }}
+          git checkout ${{ github.ref }} -- .
 
       - name: Restore old benchmark results
         run: mkdir -p results && cp ../tmp_results/benchmark_results_native.csv results/ || true
@@ -56,10 +47,11 @@ jobs:
           cd sparrow
           export RUSTFLAGS=$RUSTFLAGS
           output=$(cargo run --profile release --features=only_final_svg,simd --bin bench-wasm -- ./data/input/swim.json | tee /dev/stderr)
+          filtered_output=$(echo "$output" | grep -v "\[INFO\]")
           {
             echo "## Benchmark Output for swim.json"
             echo '```'
-            echo "$output"
+            echo "$filtered_output"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 

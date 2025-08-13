@@ -13,6 +13,16 @@ function getGitCommitHash(): string {
   }
 }
 
+function getGitBranchName(): string {
+  try {
+    const branchName = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+    return branchName;
+  } catch (error) {
+    console.error("Failed to get git branch name:", error);
+    return "unknown";
+  }
+}
+
 function getCpuModel(): string {
   try {
     const cpus = os.cpus();
@@ -31,22 +41,25 @@ function createResultsFile() {
   fs.mkdirSync(path.dirname(resultsRemoteFilePath), { recursive: true });
 
   if (!fs.existsSync(resultsLocalFilePath)) {
-    const logEntryHeader = `Timestamp,BenchConfiguration,Run,Browser,CPU,CommitHash,Max evals/s\n`;
+    const logEntryHeader = `Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,Max evals/s\n`;
     fs.appendFileSync(resultsLocalFilePath, logEntryHeader);
   }
 
   if (!fs.existsSync(resultsRemoteFilePath)) {
-    const logEntryHeader = `Timestamp,BenchConfiguration,Run,Browser,CPU,CommitHash,RunningTime\n`;
+    const logEntryHeader = `Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime\n`;
     fs.appendFileSync(resultsRemoteFilePath, logEntryHeader);
   }
 }
 
 async function globalSetup() {
+  const branchName = getGitBranchName();
   const commitHash = getGitCommitHash();
   const cpuModel = getCpuModel();
 
+  process.env.GIT_BRANCH_NAME = branchName;
   process.env.GIT_COMMIT_HASH = commitHash;
   process.env.CPU_MODEL = cpuModel;
+  console.log(`Current Git Branch Name: ${process.env.GIT_BRANCH_NAME}`);
   console.log(`Current Git Commit Hash: ${process.env.GIT_COMMIT_HASH}`);
   console.log(`Current CPU Model: ${process.env.CPU_MODEL}`);
 

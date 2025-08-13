@@ -17,17 +17,9 @@ on:
         required: true
         type: choice
         options:
-          - ubuntu-latest
           - E5645
-      git_tag:
-        description: "Code version"
-        required: true
-        type: choice
-        options:
-          - V1
-          - V2
-          - V3
-          - V4
+          - 7950X
+          - ubuntu-latest
 
 jobs:
   run-wasm-benchmark:
@@ -44,8 +36,8 @@ jobs:
 
       - name: Checkout code from tag
         run: |
-          git fetch origin ${{ inputs.git_tag }}
-          git checkout ${{ inputs.git_tag }} -- .
+          git fetch origin ${{ github.ref }}
+          git checkout ${{ github.ref }} -- .
 
       - name: Restore old benchmark results
         run: mkdir -p results && cp tmp_results/benchmark_results_wasm.csv results/ || true
@@ -89,10 +81,17 @@ jobs:
       - name: Run Playwright tests
         run: |
           if [ "${{ inputs.browser }}" == "all" ]; then
-            npx playwright test speed-remote
+            output=$(npx playwright test speed-remote)
           else
-            npx playwright test speed-remote --project ${{ inputs.browser }}
+            output=$(npx playwright test speed-remote --project ${{ inputs.browser }})
           fi
+
+          {
+            echo "### Playwright Test Output"
+            echo '```'
+            echo "$output"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -101,8 +100,17 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      - name: Restore all files except CSVs
-        run: git restore -- ':!results/*.csv'
+      - name: Temp save new benchmark file
+        run: mkdir -p ../tmp_results && cp -f results/benchmark_results_native.csv ../tmp_results/ || true
+
+      - name: Checkout benchmarks branch
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ref: benchmarks
+
+      - name: Replace old benchmark results with new benchmark results
+        run: mkdir -p results && cp ../tmp_results/benchmark_results_native.csv results/ || true
 
       - name: Commit and push benchmark results
         uses: stefanzweifel/git-auto-commit-action@v5
