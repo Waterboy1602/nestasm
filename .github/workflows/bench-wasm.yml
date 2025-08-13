@@ -81,9 +81,9 @@ jobs:
       - name: Run Playwright tests
         run: |
           if [ "${{ inputs.browser }}" == "all" ]; then
-            output=$(npx playwright test speed-remote)
+            output=$(npx playwright test speed-remote | tee /dev/stderr)
           else
-            output=$(npx playwright test speed-remote --project ${{ inputs.browser }})
+            output=$(npx playwright test speed-remote --project ${{ inputs.browser }} | tee /dev/stderr)
           fi
 
           {
