@@ -33,3 +33,4 @@ Cargo.lock
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+/results/

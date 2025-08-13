@@ -34,20 +34,55 @@ jobs:
   run-wasm-benchmark:
     runs-on: ${{ inputs.cpu_tag }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout benchmarks branch
+        uses: actions/checkout@v4
         with:
-          submodules: recursive
-          ref: ${{ inputs.git_tag }}
+          ref: benchmarks
 
-      - uses: actions/setup-node@v4
+      - name: Save existing benchmark file
+        run: mkdir -p tmp_results && cp results/benchmark_results_wasm.csv tmp_results/ || true
+
+      - name: Checkout code from tag
+        run: git checkout ${{ inputs.git_tag }} -- .
+
+      - name: Restore old benchmark results
+        run: mkdir -p results && cp tmp_results/benchmark_results_wasm.csv results/ || true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: "20"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Setup Rust Toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          components: rust-src
+
+      - name: Build Rust WASM and React Application
+        run: |
+          cargo install wasm-pack
+          cd wasm && wasm-pack build --target web --out-dir ../src/wasm
+          cd .. && npm install && npm run build
 
       - name: Install Playwright Browsers
         run: npx playwright install
+
+      - name: Start Vite preview server
+        run: |
+          nohup npm run preview &
+
+      - name: Wait for server
+        run: |
+          for i in {1..30}; do
+            if curl -sSf http://localhost:4173 >/dev/null; then
+              echo "Vite preview server is live!"
+              break
+            fi
+            echo "Waiting for Vite preview..."
+            sleep 2
+          done
 
       - name: Run Playwright tests
         run: |
@@ -64,10 +99,10 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      - name: Upload benchmark results
-        uses: actions/upload-artifact@v4
-        if: always()
+      - name: Commit and push benchmark results
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          name: benchmark-results-wasm
-          path: results/benchmark_results_wasm.csv
-          retention-days: 30
+          create_branch: true
+          branch: "benchmarks"
+          commit_message: "chore: update benchmark results"
+          file_pattern: "results/benchmark_results_wasm.csv"
