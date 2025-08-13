@@ -33,13 +33,11 @@ jobs:
       - name: Save existing benchmark file
         run: mkdir -p tmp_results && cp results/benchmark_results_wasm.csv tmp_results/ || true
 
-      - name: Checkout code from tag
-        run: |
-          git fetch origin ${{ github.ref }}
-          git checkout ${{ github.ref_name  }} -- .
-
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
+      - name: Checkout triggered branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          submodules: recursive
 
       - name: Restore old benchmark results
         run: mkdir -p results && cp tmp_results/benchmark_results_wasm.csv results/ || true
@@ -108,7 +106,6 @@ jobs:
       - name: Checkout benchmarks branch
         uses: actions/checkout@v4
         with:
-          submodules: recursive
           ref: benchmarks
 
       - name: Replace old benchmark results with new benchmark results
