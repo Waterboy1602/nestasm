@@ -37,7 +37,7 @@ jobs:
       - name: Checkout code from tag
         run: |
           git fetch origin ${{ inputs.git_tag }}
-          git checkout ${{ inputs.git_tag }} -- .
+          git worktree add ../code_to_test ${{ inputs.git_tag }}
 
       - name: Restore old benchmark results
         run: mkdir -p results && cp tmp_results/benchmark_results_native.csv results/ || true
@@ -53,7 +53,7 @@ jobs:
         env:
           RUSTFLAGS: "-C target-cpu=native -Awarnings"
         run: |
-          cd sparrow
+          cd ../code_to_test/sparrow
           export RUSTFLAGS=$RUSTFLAGS
           output=$(cargo run --profile release --features=only_final_svg,simd --bin bench-wasm -- ./data/input/swim.json | tee /dev/stderr)
           {
@@ -77,4 +77,4 @@ jobs:
           create_branch: true
           branch: "benchmarks"
           commit_message: "chore: update benchmark results"
-          file_pattern: "results/benchmark_results_native.csv"
+          file_pattern: "results/benchmark_results_*.csv"
