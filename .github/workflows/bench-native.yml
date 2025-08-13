@@ -28,7 +28,10 @@ jobs:
       - name: Checkout code from tag
         run: |
           git fetch origin ${{ github.ref }}
-          git checkout ${{ github.ref }} -- .
+          git checkout ${{ github.ref_name  }} -- .
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
 
       - name: Restore old benchmark results
         run: mkdir -p results && cp ../tmp_results/benchmark_results_native.csv results/ || true
