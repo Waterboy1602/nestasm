@@ -1,1 +1,5 @@
-Timestamp,BenchConfiguration,Run,Browser,CPU,CommitHash,RunningTime
+Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
+2025-08-13T22:39:07.922Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,205239
+2025-08-13T22:42:30.394Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,202257
+2025-08-13T22:45:56.805Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,206242
+2025-08-13T22:49:22.374Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,205387
