@@ -45,7 +45,7 @@ jobs:
       - name: Checkout code from tag
         run: |
           git fetch origin ${{ inputs.git_tag }}
-          git worktree add ../code_to_test ${{ inputs.git_tag }}
+          git checkout ${{ inputs.git_tag }} -- .
 
       - name: Restore old benchmark results
         run: mkdir -p results && cp tmp_results/benchmark_results_wasm.csv results/ || true
@@ -65,8 +65,8 @@ jobs:
       - name: Build Rust WASM and React Application
         run: |
           cargo install wasm-pack
-          cd ../code_to_test/wasm && wasm-pack build --target web --out-dir ../../src/wasm
-          cd ../../src && npm install && npm run build
+          cd wasm && wasm-pack build --target web --out-dir ../src/wasm
+          cd .. && npm install && npm run build
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
@@ -100,6 +100,9 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+      - name: Restore all files except CSVs
+        run: git restore -- ':!results/*.csv'
 
       - name: Commit and push benchmark results
         uses: stefanzweifel/git-auto-commit-action@v5
