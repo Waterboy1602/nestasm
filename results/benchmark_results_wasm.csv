@@ -1,5 +1,9 @@
 Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
-2025-08-13T22:39:07.922Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,205239
-2025-08-13T22:42:30.394Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,202257
-2025-08-13T22:45:56.805Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,206242
-2025-08-13T22:49:22.374Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,205387
+2025-08-14T08:51:03.673Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,211239
+2025-08-14T08:54:26.182Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,202293
+2025-08-14T08:57:50.593Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,204227
+2025-08-14T09:01:15.177Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,204408
+2025-08-14T09:11:22.051Z,1,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605235
+2025-08-14T09:21:27.817Z,2,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605274
+2025-08-14T09:31:33.584Z,3,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605358
+2025-08-14T09:41:41.923Z,4,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,607898
