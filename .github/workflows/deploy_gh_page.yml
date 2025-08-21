@@ -1,4 +1,4 @@
-name: Deploy Jagua-rs webpage with React and WASM to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
       - name: Build Rust WASM and React Application
         run: |
           cargo install wasm-pack
-          cd wasm && wasm-pack build --target web --out-dir ../src/wasm
+          cd wasm && wasm-pack build --release --target web --out-dir ../src/wasm
           cd .. && npm install && npm run build
 
       - name: Deploy to GitHub Pages
