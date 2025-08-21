@@ -1,9 +1,8 @@
 Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
-2025-08-14T08:51:03.673Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,211239
-2025-08-14T08:54:26.182Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,202293
-2025-08-14T08:57:50.593Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,204227
-2025-08-14T09:01:15.177Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,204408
-2025-08-14T09:11:22.051Z,1,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605235
-2025-08-14T09:21:27.817Z,2,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605274
-2025-08-14T09:31:33.584Z,3,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605358
-2025-08-14T09:41:41.923Z,4,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,607898
+2025-08-21T12:08:59.538Z,1,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,613415
+2025-08-21T12:19:22.213Z,2,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,620846
+2025-08-21T12:29:36.611Z,3,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,612706
+2025-08-21T12:39:47.618Z,4,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,609118
+2025-08-21T12:49:59.577Z,5,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,610368
+2025-08-21T13:00:11.512Z,6,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,610257
+2025-08-21T13:10:30.622Z,7,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,617378
