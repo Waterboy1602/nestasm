@@ -9,7 +9,8 @@ const url = "http://localhost:5173/nestasm";
  * This test measures the speed of the Wasm optimization process.
  * Without live logs
  * Without preview SVG view
- * Time limit: 60 seconds
+ * With early termination
+ * With 3 threads
  */
 test("Speed - Config 1", async ({ page }) => {
   await page.goto(url);
@@ -22,6 +23,10 @@ test("Speed - Config 1", async ({ page }) => {
   await expect(showPreviewSvgCheckbox).toBeVisible();
   await showPreviewSvgCheckbox.uncheck();
 
+  const nWorkersInput = await page.getByTestId("nWorkersInput");
+  await expect(nWorkersInput).toBeVisible();
+  await nWorkersInput.fill("3");
+
   await startOptimization(page, 1);
 });
 
@@ -29,7 +34,8 @@ test("Speed - Config 1", async ({ page }) => {
  * This test measures the speed of the Wasm optimization process.
  * With live logs
  * Without preview SVG view
- * Time limit: 60 seconds
+ * With early termination
+ * With 3 threads
  */
 test("Speed - Config 2", async ({ page }) => {
   await page.goto(url);
@@ -42,6 +48,10 @@ test("Speed - Config 2", async ({ page }) => {
   await expect(showPreviewSvgCheckbox).toBeVisible();
   await showPreviewSvgCheckbox.uncheck();
 
+  const nWorkersInput = await page.getByTestId("nWorkersInput");
+  await expect(nWorkersInput).toBeVisible();
+  await nWorkersInput.fill("3");
+
   await startOptimization(page, 2);
 });
 
@@ -49,7 +59,8 @@ test("Speed - Config 2", async ({ page }) => {
  * This test measures the speed of the Wasm optimization process.
  * Without live logs
  * With preview SVG view
- * Time limit: 60 seconds
+ * With early termination
+ * With 3 threads
  */
 test("Speed - Config 3", async ({ page }) => {
   await page.goto(url);
@@ -62,6 +73,10 @@ test("Speed - Config 3", async ({ page }) => {
   await expect(showPreviewSvgCheckbox).toBeVisible();
   await showPreviewSvgCheckbox.check();
 
+  const nWorkersInput = await page.getByTestId("nWorkersInput");
+  await expect(nWorkersInput).toBeVisible();
+  await nWorkersInput.fill("3");
+
   await startOptimization(page, 3);
 });
 
@@ -69,7 +84,8 @@ test("Speed - Config 3", async ({ page }) => {
  * This test measures the speed of the Wasm optimization process.
  * With live logs
  * With preview SVG view
- * Time limit: 60 seconds
+ * With early termination
+ * With 3 threads
  */
 test("Speed - Config 4", async ({ page }) => {
   await page.goto(url);
@@ -82,7 +98,86 @@ test("Speed - Config 4", async ({ page }) => {
   await expect(showPreviewSvgCheckbox).toBeVisible();
   await showPreviewSvgCheckbox.check();
 
+  const nWorkersInput = await page.getByTestId("nWorkersInput");
+  await expect(nWorkersInput).toBeVisible();
+  await nWorkersInput.fill("3");
+
   await startOptimization(page, 4);
+});
+
+/**
+ * This test measures the speed of the Wasm optimization process.
+ * Without live logs
+ * Without preview SVG view
+ * With early termination
+ * With 1 thread
+ */
+test("Speed - Config 5", async ({ page }) => {
+  await page.goto(url);
+
+  const showLogsInstantCheckbox = await page.getByTestId("showLogsInstant");
+  await expect(showLogsInstantCheckbox).toBeVisible();
+  await showLogsInstantCheckbox.uncheck();
+
+  const showPreviewSvgCheckbox = await page.getByTestId("showPreviewSvg");
+  await expect(showPreviewSvgCheckbox).toBeVisible();
+  await showPreviewSvgCheckbox.uncheck();
+
+  const nWorkersInput = await page.getByTestId("nWorkersInput");
+  await expect(nWorkersInput).toBeVisible();
+  await nWorkersInput.fill("1");
+
+  await startOptimization(page, 5);
+});
+
+/**
+ * This test measures the speed of the Wasm optimization process.
+ * Without live logs
+ * Without preview SVG view
+ * With early termination
+ * With 2 threads
+ */
+test("Speed - Config 6", async ({ page }) => {
+  await page.goto(url);
+
+  const showLogsInstantCheckbox = await page.getByTestId("showLogsInstant");
+  await expect(showLogsInstantCheckbox).toBeVisible();
+  await showLogsInstantCheckbox.uncheck();
+
+  const showPreviewSvgCheckbox = await page.getByTestId("showPreviewSvg");
+  await expect(showPreviewSvgCheckbox).toBeVisible();
+  await showPreviewSvgCheckbox.uncheck();
+
+  const nWorkersInput = await page.getByTestId("nWorkersInput");
+  await expect(nWorkersInput).toBeVisible();
+  await nWorkersInput.fill("1");
+
+  await startOptimization(page, 6);
+});
+
+/**
+ * This test measures the speed of the Wasm optimization process.
+ * Without live logs
+ * Without preview SVG view
+ * With early termination
+ * With 3 threads
+ */
+test("Speed - Config 7", async ({ page }) => {
+  await page.goto(url);
+
+  const showLogsInstantCheckbox = await page.getByTestId("showLogsInstant");
+  await expect(showLogsInstantCheckbox).toBeVisible();
+  await showLogsInstantCheckbox.uncheck();
+
+  const showPreviewSvgCheckbox = await page.getByTestId("showPreviewSvg");
+  await expect(showPreviewSvgCheckbox).toBeVisible();
+  await showPreviewSvgCheckbox.uncheck();
+
+  const nWorkersInput = await page.getByTestId("nWorkersInput");
+  await expect(nWorkersInput).toBeVisible();
+  await nWorkersInput.fill("3");
+
+  await startOptimization(page, 7);
 });
 
 const startOptimization = async (page, configNumber) => {
