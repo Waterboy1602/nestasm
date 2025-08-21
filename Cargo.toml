@@ -4,7 +4,6 @@ members = [
     "wasm",            
     "jagua-rs/jagua-rs",
     "jagua-rs/lbf",
-    "svg_collision_detector",
 ]
 
 # Copy from ./jagua-rs/Cargo.toml
@@ -35,7 +34,6 @@ geo-buffer = "0.2"
 
 jagua-rs = { path = "./jagua-rs/jagua-rs"  , features = ["spp", "bpp"] }
 lbf = { path = "./jagua-rs/lbf" }
-svg_collision = { path = "./svg_collision_detector" }
 sparrow = {path = "./sparrow", features = ["only_final_svg", "simd"] }
 
 # jagua-rs = { git = "https://github.com/Waterboy1602/jagua-rs_wasm.git", rev = "86820711c22aa8dd2c18adef9298b88c771088d3", features = ["spp", "bpp"] }

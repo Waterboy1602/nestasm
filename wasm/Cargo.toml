@@ -32,7 +32,6 @@ getrandom = { version = "0.3", features = ["wasm_js"] }
 jagua-rs = { workspace = true }
 lbf = { workspace = true }
 sparrow = { workspace = true }
-svg_collision = { workspace = true }
 
 
 # The `console_error_panic_hook` crate provides better debugging of panics by

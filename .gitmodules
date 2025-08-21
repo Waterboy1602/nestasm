@@ -4,6 +4,3 @@
 [submodule "sparrow"]
 	path = sparrow
 	url = https://github.com/Waterboy1602/sparrow_wasm.git
-[submodule "svg_collision_detector"]
-	path = svg_collision_detector
-	url = https://github.com/Waterboy1602/svg_collision_detector.git
