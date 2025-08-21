@@ -1,65 +1,32 @@
 # NESTASM
 
-## DEVELOPMENT
+Run nesting algorithm [Sparrow](https://github.com/JeroenGar/sparrow) or _LBF_ in the browser with the use of [WebAssembly](https://webassembly.org)
 
-### WASM-PACK
+_STILL NEED SOME CLEAN UP WORK!_
 
-- [Vite plugin WASM](https://github.com/Menci/vite-plugin-wasm)
-- [Rust WASM](https://github.com/rustwasm/wasm-pack)
+## Prerequisites
 
-Install: `cargo install wasm-pack`  
-BuildRelease : `wasm-pack build --target web --out-dir ../src/wasm`  
-Build Dev: `wasm-pack build --dev --target web --out-dir ../src/wasm`
+- Rust
+- Node.js
+- wasm-pack & npm packages: `cargo install wasm-pack && npm install`
 
-Ook _Clang_ nodig om foutmelding te vermijden: [LLVM](https://github.com/llvm/llvm-project)
+## Build and Run
 
-### WASM Changes
+Clone repo, including submodules
 
-- `getrandom = { version = "0.3", features = ["wasm_js"] }` in `Cargo.toml`
-
-In `.cargo/config.toml`
-
-```toml
-# .cargo/config.toml
-[target.wasm32-unknown-unknown]
-rustflags = ["--cfg", "getrandom_backend=\"wasm_js\""]
+```shell
+cd wasm
+wasm-pack build --release --target web --out-dir ../src/wasm
+cd ..
+npm run build
+npm run preview -- --host
 ```
 
-### FRONTEND
+## Acknowledgements
 
-- [React TSX](https://react.dev/)
-- [Vite](https://vite.dev/)
-  - [Vite SVGR](https://www.npmjs.com/package/vite-plugin-svgr): plugin to transform SVG's into React components
-- [D3.js](https://d3js.org/): manipulating SVG's
+Uses the following repos of @JeroenGar
 
-Start development server: `npm run dev`
+- [jagua-rs](https://github.com/JeroenGar/jagua-rs)
+- [sparrow](https://github.com/JeroenGar/sparrow)
 
-### PLAYWRIGHT (Testing/Benching)
-
-Limited to one worker  
-Writes results to `benchmark_result.txt`
-
-`npx playwright test speed`  
-`npx playwright test speed --project chromium`
-
-### BACKEND SERVER (deprecated)
-
-See [README.md](./gui/server/README.md)
-
-## TIPS & TRICKS
-
-### JAGUA-RS
-
-[docs](https://jeroengar.github.io/jagua-rs/jagua_rs/index.html)
-
-### LBF
-
-`cd lbf`  
-`cargo run --release -- -i ../assets/swim.json -p spp -c ../assets/config_lbf.json -s ../solutions`
-
-### SPARROW
-
-`cd sparrow`
-`cargo run --release -- -i data/input/swim.json`  
-`cargo run --release -- -i data/input/swim.json -x`: early termination  
-`cargo run --release --features=live_svg -- -i data/input/swim.json`
+Created in function of masterthesis for Industrial Sciences - Software Engineering at KU Leuven
