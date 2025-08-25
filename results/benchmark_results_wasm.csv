@@ -1,4 +1,78 @@
 Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
+2025-08-14T08:51:03.673Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,211239
+2025-08-14T08:54:26.182Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,202293
+2025-08-14T08:57:50.593Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,204227
+2025-08-14T09:01:15.177Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,204408
+2025-08-14T09:11:22.051Z,1,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605235
+2025-08-14T09:21:27.817Z,2,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605274
+2025-08-14T09:31:33.584Z,3,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,605358
+2025-08-14T09:41:41.923Z,4,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,main,1dfafe72bd0b3f26cd61d300e7c0ccabbe3ce3fa,607898
+2025-08-21T12:08:59.538Z,1,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,613415
+2025-08-21T12:19:22.213Z,2,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,620846
+2025-08-21T12:29:36.611Z,3,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,612706
+2025-08-21T12:39:47.618Z,4,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,609118
+2025-08-21T12:49:59.577Z,5,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,610368
+2025-08-21T13:00:11.512Z,6,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,610257
+2025-08-21T13:10:30.622Z,7,1,firefox,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,main,cbad6126a2130ccb62bb0cabf378330c71111de6,617378
+2025-08-21T11:55:09.074Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,268401
+2025-08-21T11:58:28.691Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,199371
+2025-08-21T12:01:52.158Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,203259
+2025-08-21T12:05:16.912Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,204560
+2025-08-21T12:15:18.003Z,5,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,600845
+2025-08-21T12:25:19.983Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,601792
+2025-08-21T12:28:39.399Z,7,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,199233
+2025-08-21T12:38:47.725Z,1,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,606329
+2025-08-21T12:48:54.991Z,2,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,606751
+2025-08-21T12:59:00.898Z,3,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,605504
+2025-08-21T13:09:03.553Z,4,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,602216
+2025-08-21T13:19:11.344Z,5,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,607347
+2025-08-21T13:29:19.089Z,6,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,607295
+2025-08-21T13:39:30.876Z,7,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,611328
+2025-08-21T13:24:07.822Z,1,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,605629
+2025-08-21T13:34:12.474Z,2,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,603928
+2025-08-21T13:44:19.714Z,3,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,606560
+2025-08-21T13:54:25.100Z,4,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,604752
+2025-08-21T14:04:31.318Z,5,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,605355
+2025-08-21T14:14:35.667Z,6,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,603652
+2025-08-21T14:24:38.900Z,7,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,602221
+2025-08-25T10:02:10.398Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,199160
+2025-08-25T10:05:30.919Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,200195
+2025-08-25T10:08:53.348Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,202146
+2025-08-25T10:12:15.965Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,202296
+2025-08-25T10:22:16.976Z,5,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,600709
+2025-08-25T10:32:17.963Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,600703
+2025-08-25T10:35:42.382Z,7,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,204130
+2025-08-25T12:27:03.993Z,1,1,chromium,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,191166
+2025-08-25T12:30:15.351Z,2,1,chromium,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,191006
+2025-08-25T12:33:29.872Z,3,1,chromium,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,194207
+2025-08-25T12:36:45.328Z,4,1,chromium,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,195103
+2025-08-25T12:46:46.713Z,5,1,chromium,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,601051
+2025-08-25T12:56:48.146Z,6,1,chromium,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,601101
+2025-08-25T12:59:58.767Z,7,1,chromium,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,190291
+2025-08-25T13:10:04.398Z,1,1,firefox,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,601782
+2025-08-25T13:20:09.730Z,2,1,firefox,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,604639
+2025-08-25T13:30:17.312Z,3,1,firefox,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,606978
+2025-08-25T13:40:27.154Z,4,1,firefox,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,609191
+2025-08-25T13:50:31.366Z,5,1,firefox,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,603531
+2025-08-25T14:00:36.527Z,6,1,firefox,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,604515
+2025-08-25T14:10:46.654Z,7,1,firefox,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,609482
+2025-08-25T14:14:08.711Z,1,1,webkit,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,196350
+2025-08-25T14:17:21.872Z,2,1,webkit,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,192490
+2025-08-25T14:20:38.777Z,3,1,webkit,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,196391
+2025-08-25T14:23:58.857Z,4,1,webkit,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,199509
+2025-08-25T14:34:01.660Z,5,1,webkit,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,602221
+2025-08-25T14:44:03.449Z,6,1,webkit,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,601261
+2025-08-25T14:47:10.275Z,7,1,webkit,Apple M2,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,186299
+2025-08-25T13:57:55.809Z,1,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,605164
+2025-08-25T14:08:00.590Z,2,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,604160
+2025-08-25T14:18:06.466Z,3,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,605368
+2025-08-25T14:28:14.003Z,4,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,606986
+2025-08-25T14:38:18.757Z,5,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,604198
+2025-08-25T14:48:26.521Z,6,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,607213
+2025-08-25T14:58:37.253Z,7,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,610179
+2025-08-25T16:08:47.698Z,6,1,chromium,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,299368
+2025-08-25T16:18:58.096Z,6,1,firefox,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,607608
+2025-08-25T16:23:50.467Z,6,1,webkit,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,290547
 2025-08-25T16:47:08.262Z,7,1,chromium,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,192192
 2025-08-25T16:57:15.364Z,7,1,firefox,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,604544
 2025-08-25T17:00:26.606Z,7,1,webkit,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,189249
