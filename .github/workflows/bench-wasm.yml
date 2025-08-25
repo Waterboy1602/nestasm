@@ -17,8 +17,9 @@ on:
         required: true
         type: choice
         options:
-          - E5645
           - 7950X
+          - M2
+          - E5645
           - ubuntu-latest
 
 jobs:
