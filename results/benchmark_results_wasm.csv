@@ -1,8 +1,4 @@
 Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
-2025-08-25T13:57:55.809Z,1,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,605164
-2025-08-25T14:08:00.590Z,2,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,604160
-2025-08-25T14:18:06.466Z,3,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,605368
-2025-08-25T14:28:14.003Z,4,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,606986
-2025-08-25T14:38:18.757Z,5,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,604198
-2025-08-25T14:48:26.521Z,6,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,607213
-2025-08-25T14:58:37.253Z,7,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,7e811b2ae99237d1b6ba735b53a4df9a841c9f77,610179
+2025-08-25T16:08:47.698Z,6,1,chromium,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,299368
+2025-08-25T16:18:58.096Z,6,1,firefox,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,607608
+2025-08-25T16:23:50.467Z,6,1,webkit,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,290547
