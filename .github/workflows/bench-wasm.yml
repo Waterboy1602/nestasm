@@ -47,7 +47,7 @@ jobs:
           ref: benchmarks
 
       - name: Save existing benchmark file
-        run: mkdir -p tmp_results && cp results/benchmark_results_wasm.csv tmp_results/ || true
+        run: mkdir -p ../tmp_results && cp results/benchmark_results_wasm.csv ../tmp_results/ || true
 
       - name: Checkout triggered branch
         uses: actions/checkout@v4
@@ -56,7 +56,7 @@ jobs:
           submodules: recursive
 
       - name: Restore old benchmark results
-        run: mkdir -p results && cp tmp_results/benchmark_results_wasm.csv results/ || true
+        run: mkdir -p results && cp ../tmp_results/benchmark_results_wasm.csv results/ || true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
