@@ -1,4 +1,4 @@
 Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
-2025-08-25T16:08:47.698Z,6,1,chromium,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,299368
-2025-08-25T16:18:58.096Z,6,1,firefox,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,607608
-2025-08-25T16:23:50.467Z,6,1,webkit,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,290547
+2025-08-25T16:47:08.262Z,7,1,chromium,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,192192
+2025-08-25T16:57:15.364Z,7,1,firefox,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,604544
+2025-08-25T17:00:26.606Z,7,1,webkit,Apple M2,final_version,d2a34ccf681bb6c0aa167c946b240c930499a684,189249
