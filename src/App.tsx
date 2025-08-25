@@ -26,7 +26,6 @@ function App() {
   const [timeLimit, setTimeLimit] = useState(60);
   const [seed, setSeed] = useState<bigint | undefined>();
   const [useEarlyTermination, setUseEarlyTermination] = useState(false);
-  const [changeInputFile, setChangeInputFile] = useState(false);
   const [optimizationAlgo, setOptimizationAlgo] = useState(OptimizationAlgo.SPARROW);
   const [nWorkers, setNWorkers] = useState(3);
   const [loading, setLoading] = useState(false);
@@ -203,11 +202,7 @@ function App() {
         }
         fileContent.current = await response.text();
 
-        if (changeInputFile) {
-          setShowChangeInput(true);
-        } else {
-          startOptimization(optimizationAlgo, fileContent.current, FileType.JSON);
-        }
+        startOptimization(optimizationAlgo, fileContent.current, FileType.JSON);
       } catch (e) {
         setError("Failed to load demo file: " + e);
       }
@@ -233,11 +228,7 @@ function App() {
       try {
         fileContent.current = await readFilePromise;
 
-        if (changeInputFile) {
-          setShowChangeInput(true);
-        } else {
-          startOptimization(optimizationAlgo, fileContent.current, FileType.JSON);
-        }
+        startOptimization(optimizationAlgo, fileContent.current, FileType.JSON);
       } catch (error) {
         setError(error as string);
       }
@@ -281,10 +272,6 @@ function App() {
         setFile(null);
       }
     }
-  };
-
-  const handleChangeInputFile = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setChangeInputFile(event.target.checked);
   };
 
   const handleChangeShowLogsInstant = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -344,10 +331,6 @@ function App() {
   };
 
   const buttonTextContent = () => {
-    if (changeInputFile) {
-      return "Upload file";
-    }
-
     if (compressingPhase) {
       return (
         <>
@@ -482,16 +465,6 @@ function App() {
                 />
               </label>
 
-              <label className={styles.checkboxWrapper}>
-                <span className={styles.checkboxLabel}>Edit input file</span>
-                <input
-                  type="checkbox"
-                  checked={changeInputFile}
-                  onChange={handleChangeInputFile}
-                  className={styles.checkbox}
-                />
-              </label>
-
               {optimizationAlgo === OptimizationAlgo.SPARROW && (
                 <>
                   <label className={styles.checkboxWrapper}>
@@ -578,25 +551,23 @@ function App() {
                 </>
               )}
 
-              {!changeInputFile && (
-                <>
-                  <label className={styles.label} htmlFor="dropdown">
-                    Algorithm
-                  </label>
+              <>
+                <label className={styles.label} htmlFor="dropdown">
+                  Algorithm
+                </label>
 
-                  <select
-                    id="optAlgoDropdown"
-                    className={styles.algoDropdown}
-                    value={optimizationAlgo}
-                    onChange={(e) => setOptimizationAlgo(e.target.value as OptimizationAlgo)}
-                  >
-                    <option value={OptimizationAlgo.LBF}>LBF</option>
-                    <option value={OptimizationAlgo.SPARROW} defaultChecked>
-                      SPARROW
-                    </option>
-                  </select>
-                </>
-              )}
+                <select
+                  id="optAlgoDropdown"
+                  className={styles.algoDropdown}
+                  value={optimizationAlgo}
+                  onChange={(e) => setOptimizationAlgo(e.target.value as OptimizationAlgo)}
+                >
+                  <option value={OptimizationAlgo.LBF}>LBF</option>
+                  <option value={OptimizationAlgo.SPARROW} defaultChecked>
+                    SPARROW
+                  </option>
+                </select>
+              </>
 
               <button type="submit" className={styles.button}>
                 {buttonTextContent()}
