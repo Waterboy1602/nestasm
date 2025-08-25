@@ -254,6 +254,7 @@ test(
 );
 
 const startOptimization = async (page, configNumber) => {
+  console.log("SharedArrayBuffer available?", typeof SharedArrayBuffer);
   const earlyTermination = await page.getByTestId("earlyTerminationInput");
   await expect(earlyTermination).toBeVisible();
   await earlyTermination.check();
