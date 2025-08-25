@@ -79,7 +79,11 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-25T17:14:37.102Z,8,1,chromium,Apple M2,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,242448
 2025-08-25T17:24:52.568Z,8,1,firefox,Apple M2,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,612604
 2025-08-25T17:29:14.942Z,8,1,webkit,Apple M2,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,260522
-2025-08-25T20:50:23.687Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,306314
-2025-08-25T21:00:28.416Z,6,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603181
-2025-08-25T21:06:06.998Z,8,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,221153
-2025-08-25T21:16:11.766Z,8,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603196
+2025-08-25T20:57:39.627Z,1,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,607155
+2025-08-25T21:07:43.598Z,2,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603111
+2025-08-25T21:17:49.684Z,3,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,605283
+2025-08-25T21:27:55.530Z,4,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,605096
+2025-08-25T21:37:59.253Z,5,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,602899
+2025-08-25T21:48:04.263Z,6,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,604279
+2025-08-25T21:58:07.083Z,7,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,602049
+2025-08-25T22:08:11.608Z,8,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603734
