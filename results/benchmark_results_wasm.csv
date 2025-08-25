@@ -79,3 +79,5 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-25T17:14:37.102Z,8,1,chromium,Apple M2,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,242448
 2025-08-25T17:24:52.568Z,8,1,firefox,Apple M2,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,612604
 2025-08-25T17:29:14.942Z,8,1,webkit,Apple M2,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,260522
+2025-08-25T20:50:23.687Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,306314
+2025-08-25T21:00:28.416Z,6,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603181
