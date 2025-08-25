@@ -87,3 +87,4 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-25T21:48:04.263Z,6,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,604279
 2025-08-25T21:58:07.083Z,7,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,602049
 2025-08-25T22:08:11.608Z,8,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603734
+2025-08-25T22:35:52.728Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,307294
