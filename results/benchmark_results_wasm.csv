@@ -1,8 +1,8 @@
 Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
-2025-08-21T13:24:07.822Z,1,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,605629
-2025-08-21T13:34:12.474Z,2,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,603928
-2025-08-21T13:44:19.714Z,3,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,606560
-2025-08-21T13:54:25.100Z,4,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,604752
-2025-08-21T14:04:31.318Z,5,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,605355
-2025-08-21T14:14:35.667Z,6,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,603652
-2025-08-21T14:24:38.900Z,7,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,cbad6126a2130ccb62bb0cabf378330c71111de6,602221
+2025-08-25T10:02:10.398Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,199160
+2025-08-25T10:05:30.919Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,200195
+2025-08-25T10:08:53.348Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,202146
+2025-08-25T10:12:15.965Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,202296
+2025-08-25T10:22:16.976Z,5,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,600709
+2025-08-25T10:32:17.963Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,600703
+2025-08-25T10:35:42.382Z,7,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,e419f92661f5258a514e20fc17cab9986b4959f4,204130
