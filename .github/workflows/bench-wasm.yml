@@ -22,6 +22,21 @@ on:
           - E5645
           - ubuntu-latest
 
+      test_config:
+        description: "Test configuration"
+        required: true
+        type: choice
+        options:
+          - all
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+
 jobs:
   run-wasm-benchmark:
     runs-on: ${{ inputs.cpu_tag }}
@@ -81,11 +96,19 @@ jobs:
 
       - name: Run Playwright tests
         run: |
-          if [ "${{ inputs.browser }}" == "all" ]; then
-            output=$(npx playwright test speed-remote | tee /dev/stderr)
-          else
-            output=$(npx playwright test speed-remote --project ${{ inputs.browser }} | tee /dev/stderr)
+          TEST_CONFIG_VALUE="${{ inputs.test_config }}"
+
+          PLAYWRIGHT_CMD="npx playwright test speed-remote"
+
+          if [ "${{ inputs.browser }}" != "all" ]; then
+            PLAYWRIGHT_CMD="$PLAYWRIGHT_CMD --project ${{ inputs.browser }}"
           fi
+
+          if [ "$TEST_CONFIG_VALUE" != "all" ]; then
+            PLAYWRIGHT_CMD="$PLAYWRIGHT_CMD --grep $TEST_CONFIG_VALUE"
+          fi
+
+          output=$($PLAYWRIGHT_CMD | tee /dev/stderr)
 
           {
             echo "### Playwright Test Output"
