@@ -193,8 +193,6 @@ const startOptimization = async (page, configNumber) => {
   await expect(startButton).toBeVisible();
   await startButton.click();
 
-  const startTime = Date.now();
-
   const logBox = await page.getByTestId("logBox");
   await expect(logBox).toBeVisible();
   await expect(logBox).toContainText("Wasm logger successfully initialized");
@@ -208,6 +206,7 @@ const startOptimization = async (page, configNumber) => {
     );
   }
   await expect(logBox).toContainText("Wasm computation started");
+  const startTime = Date.now();
 
   await expect(logBox).toContainText("Finished", { timeout: 900000 });
   const elapsedTime = Date.now() - startTime;
