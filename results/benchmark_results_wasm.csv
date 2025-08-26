@@ -97,27 +97,27 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-26T08:44:25.106Z,6,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,289304
 2025-08-26T08:47:29.899Z,7,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,184136
 2025-08-26T08:51:03.712Z,8,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,213173
-2025-08-26T09:05:04.978Z,1,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,474513
-2025-08-26T09:12:58.705Z,2,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,473399
-2025-08-26T09:21:04.550Z,3,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,485543
-2025-08-26T09:29:10.818Z,4,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,485961
-2025-08-26T09:34:15.435Z,5,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,304301
-2025-08-26T09:37:44.858Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,209139
-2025-08-26T09:45:39.644Z,7,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,474496
-2025-08-26T09:50:04.121Z,8,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,264192
-2025-08-26T10:00:11.905Z,1,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,606209
-2025-08-26T10:10:15.256Z,2,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,602748
-2025-08-26T10:20:24.097Z,3,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,608317
-2025-08-26T10:30:32.892Z,4,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,608258
-2025-08-26T10:40:38.614Z,5,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,605191
-2025-08-26T10:50:43.326Z,6,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,604178
-2025-08-26T11:00:48.067Z,7,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,604189
-2025-08-26T11:10:50.756Z,8,1,firefox,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,602130
-2025-08-26T11:18:25.710Z,1,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,453553
-2025-08-26T11:26:01.101Z,2,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,454606
-2025-08-26T11:33:41.355Z,3,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,459637
-2025-08-26T11:41:24.597Z,4,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,462491
-2025-08-26T11:46:31.651Z,5,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,306346
-2025-08-26T11:49:53.499Z,6,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,201177
-2025-08-26T11:57:27.710Z,7,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,453586
-2025-08-26T12:01:49.653Z,8,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,261239
+2025-08-26T12:03:53.169Z,1,1,chromium,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,486869
+2025-08-26T12:11:59.364Z,2,1,chromium,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,485837
+2025-08-26T12:20:20.806Z,3,1,chromium,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,501141
+2025-08-26T12:29:08.803Z,4,1,chromium,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,527674
+2025-08-26T12:34:24.518Z,5,1,chromium,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,315382
+2025-08-26T12:37:57.012Z,6,1,chromium,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,212175
+2025-08-26T12:46:03.945Z,7,1,chromium,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,486609
+2025-08-26T12:50:59.568Z,8,1,chromium,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,295302
+2025-08-26T13:01:07.988Z,1,1,firefox,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,605721
+2025-08-26T13:11:16.149Z,2,1,firefox,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,607461
+2025-08-26T13:21:27.793Z,3,1,firefox,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,611008
+2025-08-26T13:31:36.392Z,4,1,firefox,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,607918
+2025-08-26T13:41:49.062Z,5,1,firefox,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,611545
+2025-08-26T13:52:08.309Z,6,1,firefox,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,618588
+2025-08-26T14:02:14.664Z,7,1,firefox,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,605694
+2025-08-26T14:12:19.816Z,8,1,firefox,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,604497
+2025-08-26T14:20:47.945Z,1,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,505970
+2025-08-26T14:29:21.952Z,2,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,513409
+2025-08-26T14:38:03.796Z,3,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,521321
+2025-08-26T14:46:44.641Z,4,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,520262
+2025-08-26T14:51:55.609Z,5,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,310417
+2025-08-26T14:55:21.504Z,6,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,205358
+2025-08-26T15:03:30.115Z,7,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,488060
+2025-08-26T15:08:47.267Z,8,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,316644
