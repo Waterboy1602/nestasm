@@ -35,7 +35,7 @@ env_logger = "0.11.8"
 
 jagua-rs = { path = "./jagua-rs/jagua-rs"  , features = ["spp", "bpp"] }
 lbf = { path = "./jagua-rs/lbf" }
-sparrow = {path = "./sparrow", features = ["only_final_svg", "simd"] }
+sparrow = {path = "./sparrow", features = ["only_final_svg"] }
 
 # jagua-rs = { git = "https://github.com/Waterboy1602/jagua-rs_wasm.git", rev = "86820711c22aa8dd2c18adef9298b88c771088d3", features = ["spp", "bpp"] }
 # svg_collision = { git = "https://github.com/Waterboy1602/svg_collision_detector.git"}
