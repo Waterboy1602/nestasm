@@ -89,3 +89,11 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-25T22:08:11.608Z,8,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603734
 2025-08-25T22:35:52.728Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,307294
 2025-08-25T22:40:36.256Z,8,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,220136
+2025-08-26T08:20:23.060Z,1,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,182144
+2025-08-26T08:23:26.077Z,2,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,182352
+2025-08-26T08:26:32.869Z,3,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,186173
+2025-08-26T08:29:38.830Z,4,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,185254
+2025-08-26T08:39:35.187Z,5,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,595750
+2025-08-26T08:44:25.106Z,6,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,289304
+2025-08-26T08:47:29.899Z,7,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,184136
+2025-08-26T08:51:03.712Z,8,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,213173
