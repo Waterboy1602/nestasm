@@ -89,6 +89,31 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-25T22:08:11.608Z,8,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603734
 2025-08-25T22:35:52.728Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,307294
 2025-08-25T22:40:36.256Z,8,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,220136
+2025-08-26T00:33:20.841Z,1,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,505593
+2025-08-26T00:42:34.628Z,2,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,553191
+2025-08-26T00:52:10.218Z,3,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,574991
+2025-08-26T01:01:48.264Z,4,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,577452
+2025-08-26T01:11:51.316Z,5,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,602426
+2025-08-26T01:21:56.087Z,6,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,604214
+2025-08-26T01:31:19.777Z,7,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,563111
+2025-08-26T01:41:25.532Z,8,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,605051
+2025-08-26T01:51:43.437Z,1,1,firefox,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,610438
+2025-08-26T02:02:08.148Z,2,1,firefox,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,621469
+2025-08-26T02:12:13.659Z,3,1,firefox,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,601969
+2025-08-26T02:22:30.823Z,4,1,firefox,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,614032
+2025-08-26T02:32:39.664Z,5,1,firefox,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,605852
+2025-08-26T02:42:54.657Z,6,1,firefox,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,611990
+2025-08-26T02:53:10.667Z,7,1,firefox,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,612949
+2025-08-26T03:03:19.674Z,8,1,firefox,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,605865
+2025-08-26T03:13:26.566Z,1,1,webkit,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,601958
+2025-08-26T03:23:32.833Z,2,1,webkit,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603972
+2025-08-26T03:33:36.705Z,3,1,webkit,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,602093
+2025-08-26T03:43:42.797Z,4,1,webkit,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,604407
+2025-08-26T03:53:45.871Z,5,1,webkit,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,601197
+2025-08-26T04:03:49.573Z,6,1,webkit,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,601645
+2025-08-26T04:13:56.075Z,7,1,webkit,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,604546
+2025-08-26T04:24:01.896Z,8,1,webkit,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,603837
+2025-08-26T08:51:06.093Z,1,1,chromium,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,without_simd,f9a246ced250af3fee317fa0ac2994e819b5469c,603360
 2025-08-26T08:20:23.060Z,1,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,182144
 2025-08-26T08:23:26.077Z,2,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,182352
 2025-08-26T08:26:32.869Z,3,1,webkit,AMD Ryzen 9 7950X 16-Core Processor,final_version,f9a246ced250af3fee317fa0ac2994e819b5469c,186173
@@ -121,3 +146,4 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-26T14:55:21.504Z,6,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,205358
 2025-08-26T15:03:30.115Z,7,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,488060
 2025-08-26T15:08:47.267Z,8,1,webkit,Apple M2,without_simd,0221ce353bb083658a9c02f50fdf6909dab6dc90,316644
+
