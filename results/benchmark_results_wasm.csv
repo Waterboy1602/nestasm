@@ -179,3 +179,11 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-26T18:37:12.049Z,6,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,601280
 2025-08-26T18:47:17.437Z,7,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,604568
 2025-08-26T18:57:29.555Z,8,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,611304
+2025-08-26T19:11:00.804Z,1,1,webkit,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,604008
+2025-08-26T19:21:07.064Z,2,1,webkit,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,603682
+2025-08-26T19:31:17.864Z,3,1,webkit,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,608167
+2025-08-26T19:41:25.934Z,4,1,webkit,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,605275
+2025-08-26T19:51:31.756Z,5,1,webkit,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,603185
+2025-08-26T20:01:38.379Z,6,1,webkit,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,603969
+2025-08-26T20:11:46.784Z,7,1,webkit,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,605674
+2025-08-26T20:21:54.403Z,8,1,webkit,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,without_simd,ee57c607089f02049c63b1a6f0d83798231ad3ad,605047
