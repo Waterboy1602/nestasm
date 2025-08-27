@@ -1,0 +1,2 @@
+Timestamp,CPU,Branch,CommitHash,Seed,EarlyTermination,RunningTime
+2025-08-27T01:11:02.6423133Z,Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz,final_version,ee34a0984840d973bce828278ce3c12a5642bfcc,8780830896941405304,true,61822
