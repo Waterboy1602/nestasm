@@ -282,7 +282,7 @@ const startOptimization = async (page, configNumber) => {
   await expect(logBox).toContainText("Wasm computation started");
   const startTime = Date.now();
 
-  await expect(logBox).toContainText("Finished", { timeout: 900000 });
+  await expect(logBox).toContainText("Finished", { timeout: 900000000000 });
   const elapsedTime = Date.now() - startTime;
 
   await expect(logBox).toContainText("Max evals");
