@@ -57,8 +57,8 @@ pub fn run_sparrow(
         None => {
             warn!("[MAIN] no time limit specified");
             (
-                Duration::from_secs(600).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
-                Duration::from_secs(600).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
+                Duration::from_secs(600000).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
+                Duration::from_secs(600000).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
             )
         }
     };
