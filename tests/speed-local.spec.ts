@@ -191,7 +191,7 @@ const startOptimization = async (page, configNumber) => {
 
   const seed = await page.getByTestId("seedInput");
   await expect(seed).toBeVisible();
-  await seed.fill("8780830896941405304");
+  await seed.fill("42");
 
   const startButton = await page.getByRole("button", { name: "Start optimization" });
   await expect(startButton).toBeVisible();
