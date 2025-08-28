@@ -15,7 +15,7 @@ on:
 
 jobs:
   run-native-benchmark:
-    name: bench swim.json - seed 8780830896941405304 - Early termination
+    name: bench swim.json - seed 42 - Early termination
     runs-on: ${{ inputs.cpu_tag }}
     steps:
       - name: Checkout benchmarks branch
