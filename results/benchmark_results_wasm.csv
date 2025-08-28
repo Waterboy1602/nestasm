@@ -205,3 +205,11 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-27T22:50:38.759Z,6,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,b7c60392b5ad84df0d1226ea517032d5fb54054f,1500672
 2025-08-27T23:07:00.971Z,7,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,b7c60392b5ad84df0d1226ea517032d5fb54054f,981465
 2025-08-27T23:26:57.396Z,8,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,b7c60392b5ad84df0d1226ea517032d5fb54054f,1195656
+2025-08-28T14:08:53.611Z,1,1,chromium,Apple M2,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,186293
+2025-08-28T14:11:59.032Z,2,1,chromium,Apple M2,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,185066
+2025-08-28T14:15:11.699Z,3,1,chromium,Apple M2,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,192349
+2025-08-28T14:18:29.300Z,4,1,chromium,Apple M2,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,197275
+2025-08-28T14:25:09.357Z,5,1,chromium,Apple M2,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,399718
+2025-08-28T14:29:31.111Z,6,1,chromium,Apple M2,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,261419
+2025-08-28T14:32:38.692Z,7,1,chromium,Apple M2,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,187252
+2025-08-28T14:35:56.373Z,8,1,chromium,Apple M2,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,197352
