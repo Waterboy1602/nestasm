@@ -28,6 +28,7 @@ once_cell = "1.21.3"
 
 rand = { version = "0.9" }
 getrandom = { version = "0.3", features = ["wasm_js"] }
+rand_chacha  = "0.9"
 
 jagua-rs = { workspace = true }
 lbf = { workspace = true }
