@@ -10,6 +10,7 @@ use jagua_rs::probs::spp::io::ext_repr::ExtSPInstance;
 use log::{Level, info, log, warn};
 use rand::SeedableRng;
 use rand::prelude::{Rng, SmallRng};
+use rand_chacha::ChaCha20Rng;
 use serde_wasm_bindgen::from_value;
 use sparrow::config::*;
 use sparrow::consts::{
@@ -85,12 +86,12 @@ pub fn run_sparrow(
     let mut rng = match seed {
         Some(seed) => {
             info!("[MAIN] using seed: {}", seed);
-            SmallRng::seed_from_u64(seed as u64)
+            ChaCha20Rng::seed_from_u64(seed as u64)
         }
         None => {
             let seed = rand::random();
             warn!("[MAIN] no seed provided, using: {}", seed);
-            SmallRng::seed_from_u64(seed)
+            ChaCha20Rng::seed_from_u64(seed)
         }
     };
 
