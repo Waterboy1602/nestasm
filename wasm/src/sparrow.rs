@@ -9,7 +9,8 @@ use jagua_rs::io::svg::s_layout_to_svg;
 use jagua_rs::probs::spp::io::ext_repr::ExtSPInstance;
 use log::{Level, info, log, warn};
 use rand::SeedableRng;
-use rand::prelude::SmallRng;
+use rand::prelude::{Rng, SmallRng};
+use rand_chacha::ChaCha20Rng;
 use serde_wasm_bindgen::from_value;
 use sparrow::config::*;
 use sparrow::consts::{
@@ -57,8 +58,8 @@ pub fn run_sparrow(
         None => {
             warn!("[MAIN] no time limit specified");
             (
-                Duration::from_secs(600).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
-                Duration::from_secs(600).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
+                Duration::from_secs(600000).mul_f32(DEFAULT_EXPLORE_TIME_RATIO),
+                Duration::from_secs(600000).mul_f32(DEFAULT_COMPRESS_TIME_RATIO),
             )
         }
     };
@@ -82,17 +83,20 @@ pub fn run_sparrow(
         warn!("[MAIN] early termination enabled!");
     }
 
-    let rng = match seed {
+    let mut rng = match seed {
         Some(seed) => {
             info!("[MAIN] using seed: {}", seed);
-            SmallRng::seed_from_u64(seed as u64)
+            ChaCha20Rng::seed_from_u64(seed as u64)
         }
         None => {
             let seed = rand::random();
             warn!("[MAIN] no seed provided, using: {}", seed);
-            SmallRng::seed_from_u64(seed)
+            ChaCha20Rng::seed_from_u64(seed)
         }
     };
+
+    let first_random: u32 = rng.random();
+    info!("[MAIN] first random number: {}", first_random);
 
     let ext_sp_instance: ExtSPInstance = serde_json::from_str(&json_str)
         .context("not a valid strip packing instance (ExtSPInstance)")
