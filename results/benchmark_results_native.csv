@@ -33,3 +33,4 @@ Timestamp,CPU,Branch,CommitHash,Seed,EarlyTermination,RunningTime
 2025-08-28T14:15:14.21369076Z,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,df7b7b98d2eb7e25c00c4b0b256b75262d2d1a46,42,true,562222
 2025-08-28T14:27:20.700982305Z,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,1141fdfb540ead92ad65d3cf5453bdd2fbfe4465,42,true,569050
 2025-08-28T14:39:41.630718Z,Apple M2,1_worker,1ae7ded577b17019f1211c5c75ca816e1a7a14aa,42,true,165352
+2025-08-28T14:42:31.308787932Z,AMD Ryzen 9 7950X 16-Core Processor,2_workers,b756ed485c7247a8b4bace7f24bdc0ba0b1fa2d7,42,true,123897
