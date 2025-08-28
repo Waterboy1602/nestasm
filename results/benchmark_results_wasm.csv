@@ -213,14 +213,11 @@ Timestamp,BenchConfiguration,Run,Browser,CPU,Branch,Commit,RunningTime
 2025-08-28T14:30:21.544Z,6,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,268254
 2025-08-28T14:33:36.946Z,7,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,195117
 2025-08-28T14:36:23.320Z,8,1,chromium,AMD Ryzen 9 7950X 16-Core Processor,final_version,193ef63ebfdb42c9927080131c500e8ec01e43c7,166082
-2025-08-28T14:53:35.913Z,1,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,182326
-2025-08-28T14:56:42.906Z,2,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,186419
-2025-08-28T15:00:01.825Z,3,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,198414
-2025-08-28T15:03:21.875Z,4,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,199526
-2025-08-28T15:09:53.144Z,5,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,390768
-2025-08-28T15:14:09.105Z,6,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,255469
-2025-08-28T15:17:13.900Z,7,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,184296
-2025-08-28T15:20:26.776Z,8,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,192346
-2025-08-28T15:55:23.267Z,8,1,chromium,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,169279
-2025-08-28T16:35:09.728Z,8,1,firefox,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,2382912
-2025-08-28T16:38:27.174Z,8,1,webkit,Apple M2,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,195388
+2025-08-28T15:32:54.230Z,1,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,934577
+2025-08-28T15:48:38.816Z,2,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,943720
+2025-08-28T16:04:47.688Z,3,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,967955
+2025-08-28T16:20:58.338Z,4,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,969858
+2025-08-28T16:53:57.003Z,5,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,1977640
+2025-08-28T17:14:43.992Z,6,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,1245986
+2025-08-28T17:30:37.190Z,7,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,952473
+2025-08-28T17:45:47.075Z,8,1,chromium,Intel(R) Xeon(R) CPU           E5645  @ 2.40GHz,final_version,3610a1494ea43fd0c63716abf9af77f61cc284a3,909075
